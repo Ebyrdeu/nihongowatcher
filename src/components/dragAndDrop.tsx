@@ -2,12 +2,37 @@
 
 import {Label} from '@/components/ui/label';
 import {Input} from '@/components/ui/input';
+import {useState} from 'react';
 
 export const DragAndDrop = () => {
+  const [dataLink, setDataLink] = useState<undefined | string>(undefined);
+
+  // All Four events need to called in order to prevent file to open on browser in another link
+  const onDragFile = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const onUploadFile = (e: any) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    // handle upload by drag & drop
+    if (e.dataTransfer?.files && e.dataTransfer?.files[0])
+      setDataLink(URL.createObjectURL(e.dataTransfer.files[0]));
+
+    // handle upload by selecting file from explorer
+    setDataLink(URL.createObjectURL(e.target.files[0]));
+  };
 
   return (
       <>
-        <Label htmlFor={'video'}>
+
+        <Label onDragEnter={onDragFile}
+               onDragLeave={onDragFile}
+               onDragOver={onDragFile}
+               onDrop={onUploadFile}
+               htmlFor={'video'}>
           <div className={'pb-2'}>
             <svg xmlns="http://www.w3.org/2000/svg" fill="none"
                  viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
@@ -20,7 +45,7 @@ export const DragAndDrop = () => {
               className="font-semibold">Click to upload</span> or drag and drop
           </p>
         </Label>
-        <Input onDrop={(e) => console.log(e)} id={'video'}/>
+        <Input onChange={onUploadFile} id={'video'}/>
       </>
   );
 };

@@ -10,7 +10,7 @@ const Input = React.forwardRef<HTMLInputElement, VideoInputProps>(
           <input
               className={cn('hidden', className)}
               type={!type ? 'file' : type}
-              accept={!accept ? 'video/*' : accept}
+              accept={'video/*, .srt, .vtt'}
               ref={ref}
               {...props}
           />
