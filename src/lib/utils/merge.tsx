@@ -1,7 +1,12 @@
-import {clsx, type ClassValue} from 'clsx';
-import {twMerge} from 'tailwind-merge';
+import { clsx, type ClassValue } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
-// Helper for merging tailwind style classes
+/**
+ * Merges multiple CSS class values using Tailwind CSS class merging and
+ * combines them into a single space-separated string.
+ * @param {...ClassValue} inputs - CSS class values to be merged.
+ * @returns {string} The merged CSS classes as a string.
+ */
 export function cn(...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }

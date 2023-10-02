@@ -7,6 +7,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      margin: {
+        '20vh': '20vh'
+      },
       colors: {
         'primary': '#ef9995',
         'primary-content': '#282425',
