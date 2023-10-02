@@ -14,10 +14,11 @@ const labelVariants = cva(
           default: 'bg-base-100 dark:border-base-200 dark:hover:border-base-300',
           dark: 'bg-base-200 dark:border-base-100 dark:hover:border-base-300',
           darker: 'bg-base-300 dark:border-base-200 dark:hover:border-base-100',
+          night: "bg-neutral"
         },
       },
       defaultVariants: {
-        variant: 'default',
+        variant: 'night',
       },
     },
 );

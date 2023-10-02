@@ -3,39 +3,26 @@
 import {Label} from '@/components/ui/label';
 import {Input} from '@/components/ui/input';
 import {useLinkStore} from '@/store';
+import {ChangeEvent} from 'react';
 
-/**
- * DragAndDrop component allows users to upload a video file
- * by either clicking to select a file or dragging and dropping
- * a file into the designated area.
- */
 export const DragAndDrop = () => {
   const {changeLink} = useLinkStore();
 
-  /**
-   * Prevents the default drag event behavior and stops propagation.
-   * @param {Event} e - The drag event.
-   */
   const onDragFile = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
+    (e as DragEvent).preventDefault();
+    (e as DragEvent).stopPropagation();
   };
 
-  /**
-   * Handles the file upload event, triggered by either drag & drop or file selection.
-   * If a file is provided, it changes the link using `changeLink`.
-   * @param {Event} e - The upload event.
-   */
   const onUploadFile = (e: any) => {
-    e.preventDefault();
-    e.stopPropagation();
+    (e as DragEvent).preventDefault();
+    (e as DragEvent).stopPropagation();
 
-    // handle upload by drag & drop
-    if (e.dataTransfer?.files && e.dataTransfer?.files[0])
-      return changeLink(URL.createObjectURL(e.dataTransfer.files[0]));
+    const files: FileList | null = (e as DragEvent).dataTransfer?.files ||
+        (e as ChangeEvent<HTMLInputElement>).target?.files;
 
-    // handle upload by selecting file from explorer
-    return changeLink(URL.createObjectURL(e.target.files[0]));
+    if (files && files.length > 0)
+      changeLink(Array.from(files).map(file => URL.createObjectURL(file)));
+
   };
 
   return (
@@ -49,19 +36,20 @@ export const DragAndDrop = () => {
           <Label htmlFor={'video'}>
             <div className={'pb-2'}>
               <svg xmlns="http://www.w3.org/2000/svg" fill="none"
+                   color={'#ef9995'}
                    viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
                    className="w-14 h-14">
                 <path strokeLinecap="round" strokeLinejoin="round"
                       d="M12 16.5V9.75m0 0l3 3m-3-3l-3 3M6.75 19.5a4.5 4.5 0 01-1.41-8.775 5.25 5.25 0 0110.233-2.33 3 3 0 013.758 3.848A3.752 3.752 0 0118 19.5H6.75z"/>
               </svg>
             </div>
-            <p className="h-mb-2 text-xl dark:text-primary-content"><span
+            <p className="h-mb-2 text-xl text-primary"><span
                 className="font-semibold">Click to upload</span> or drag and
               drop
             </p>
           </Label>
           <Input accept={'video/*, video/x-matroska'} onChange={onUploadFile}
-                 id={'video'}/>
+                 id={'video'} multiple={true}/>
         </div>
       </div>
   );

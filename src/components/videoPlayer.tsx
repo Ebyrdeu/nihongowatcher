@@ -1,37 +1,32 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {Video} from '@/components/ui/video';
 import {useLinkStore} from '@/store';
-import {Input} from '@/components/ui/input';
+import {Button} from '@/components/ui/button';
 
 /**
  * VideoPlayer component displays a video with optional overlay
  * that becomes visible when the mouse hovers over the video.
  */
 const VideoPlayer = () => {
-      const {link} = useLinkStore();
-      const [changeLink, setChangeLink] = useState<string | undefined>(undefined);
-      const ref = useRef<HTMLVideoElement>(null);
+  const {link: videoLink, next: episode, changeNext: changeEpisode} = useLinkStore();
+  const ref = useRef<HTMLVideoElement>(null);
 
-      const onUploadFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-        e.preventDefault();
-        e.stopPropagation();
+  const fullScreen = () => {
+    if (ref.current)
+    return ref.current.requestFullscreen();
+  }
 
-        const file = e.target?.files?.[0];
+  return (
+      <div className={'relative w-1/2 m-auto mt-24'}>
+        <Video controls={true} ref={ref} src={videoLink[episode]}
+               subtitles={''}/>
+        <Button text={'dark'} variant={'dark'} className={'w-full'} onClick={changeEpisode}>Next
+          episode</Button>
 
-        if (file) setChangeLink(URL.createObjectURL(file));
-      };
-
-      return (
-          <div className={'relative w-1/2 m-auto mt-24'}>
-            <Input accept={'.vtt, .srt'}
-                   onChange={onUploadFile}
-                   id={'sub'}/>
-
-            <Video controls={true} ref={ref} src={link}
-                   subtitles={changeLink}/>
-          </div>
-      );
-    }
-;
+        <Button text={'dark'} variant={'dark'} className={'w-full'} onClick={fullScreen}>Next
+          episode</Button>
+      </div>
+  );
+};
 
 export default VideoPlayer;

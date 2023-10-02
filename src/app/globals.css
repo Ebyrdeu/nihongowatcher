@@ -3,16 +3,10 @@
 @tailwind utilities;
 
 :root {
-    --foreground-primary-rgb: 232, 220, 180;
+    --foreground-primary-rgb: 40, 36, 37, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root {
-        --foreground-rgb: 40, 36, 37, 255;
-    }
-}
 
 body {
-    color: rgb(var(--foreground-rgb));
     background: rgb(var(--foreground-primary-rgb));
 }

@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
       <main>
-        {!link ? <DragAndDrop /> : <VideoPlayer />}
+        {link.length <= 0 ? <DragAndDrop /> : <VideoPlayer />}
       </main>
   );
 }

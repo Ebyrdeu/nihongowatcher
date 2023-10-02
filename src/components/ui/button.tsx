@@ -10,10 +10,12 @@ const buttonVariants = cva('font-bold py-2 px-4 rounded', {
   variants: {
     variant: {
       default: 'bg-base-100 hover:bg-base-200',
-      subtle: 'bg-transparent',
+      dark: 'bg-neutral hover:bg-primary-content ',
+      subtle: 'bg-transparent ',
     },
     text: {
       default: 'text-primary-content',
+      dark: 'text-neutral-content',
       pink: 'text-primary',
     },
   },
@@ -44,8 +46,9 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
  */
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     ({className, variant, ...props}, ref) => {
-      return <button className={cn(buttonVariants({variant, className}))}
-                     ref={ref} {...props} />;
+      return <button
+          className={cn(buttonVariants({variant, className}))}
+          ref={ref} {...props} />;
     },
 );
 
