@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 /**
@@ -7,6 +7,6 @@ import { twMerge } from 'tailwind-merge';
  * @param {...ClassValue} inputs - CSS class values to be merged.
  * @returns {string} The merged CSS classes as a string.
  */
-export function cn(...inputs: ClassValue[]): string {
+export function cn (...inputs: ClassValue[]): string {
   return twMerge(clsx(inputs));
 }

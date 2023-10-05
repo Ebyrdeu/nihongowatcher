@@ -36,4 +36,5 @@ next-env.d.ts
 
 # others
 .idea
+.idea/*
 .vscode

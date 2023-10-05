@@ -1,4 +1,5 @@
 import './globals.css';
+import React from 'react';
 
 import { type Metadata } from 'next';
 import { fontInter } from '@/lib/utils';
@@ -12,17 +13,10 @@ export const metadata: Metadata = {
   description: 'A Video Player to watch Japanese Videos',
 };
 
-/**
- * RootLayout component for wrapping the entire application's content.
- * @component
- * @param {Object} props - The props for the RootLayout component.
- * @param {React.ReactNode} props.children - The children components to be wrapped.
- * @returns {JSX.Element} The rendered RootLayout component.
- */
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout ({ children }: { children: React.ReactNode }) {
   return (
-      <html lang="en">
-      <body className={fontInter.className}>{children}</body>
-      </html>
+    <html lang="en">
+    <body className={fontInter.className}>{children}</body>
+    </html>
   );
 }
