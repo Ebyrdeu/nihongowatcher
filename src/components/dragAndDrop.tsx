@@ -44,12 +44,10 @@ export const DragAndDrop = () => {
               </svg>
             </div>
             <p className="h-mb-2 text-xl text-primary"><span
-                className="font-semibold">Click to upload</span> or drag and
-              drop
+                className="font-semibold">Click to upload</span> or drag and drop
             </p>
           </Label>
-          <Input accept={'video/*, video/x-matroska'} onChange={onUploadFile}
-                 id={'video'} multiple={true}/>
+          <Input accept={'video/*, video/x-matroska'} onChange={onUploadFile} id={'video'} multiple={true}/>
         </div>
       </div>
   );

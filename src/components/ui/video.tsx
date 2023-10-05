@@ -6,7 +6,7 @@ import {cn} from '@/lib/utils';
  * Define video variants and their corresponding CSS classes.
  * @type {Function}
  */
-const videoVariants = cva('w-full m-auto z-0', {
+const videoVariants = cva('w-full m-auto', {
   variants: {
     variant: {
       default: 'w-full',
@@ -42,6 +42,7 @@ export interface VideoProps extends React.VideoHTMLAttributes<HTMLVideoElement>,
 const Video = React.forwardRef<HTMLVideoElement, VideoProps>(
     ({className, controls = false, subtitles, variant, ...props}, ref) => {
       return <video
+          autoPlay={true}
           controls={controls}
           className={cn(videoVariants({variant, className}))}
           ref={ref}

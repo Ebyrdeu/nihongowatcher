@@ -10,6 +10,19 @@ interface LinkStore {
   changeLink: (link: string[]) => void;
 }
 
+interface OverlayStore {
+  isPaused: boolean;
+  isFullscreen: boolean;
+  isMuted: boolean
+  isVolume: boolean
+  isOverlay: boolean
+  setPaused: (paused: boolean) => void;
+  setFullscreen: (fullscreen: boolean) => void;
+  setMute: (mute: boolean) => void;
+  setVolume: (volume: boolean) => void;
+  setOverlay: (overlay: boolean) => void;
+}
+
 const useLinkStore = create<LinkStore>((set) => ({
   link: [],
   next: 0,
@@ -20,6 +33,20 @@ const useLinkStore = create<LinkStore>((set) => ({
   changeLink: (link: string[]) => set(s => ({link: [...s.link, ...link]})),
 }));
 
-export {useLinkStore};
+const useOverLayStore = create<OverlayStore>((set) => ({
+  isPaused: true,
+  isFullscreen: false,
+  isMuted: true,
+  isVolume: false,
+  isOverlay: false,
+
+  setPaused: (paused) => set(() => ({isPaused: paused})),
+  setFullscreen: (fullscreen) => set(() => ({isFullscreen: fullscreen})),
+  setMute: (mute) => set(() => ({isMuted: mute})),
+  setVolume: (volume) => set(() => ({isVolume: volume})),
+  setOverlay: (overlay) => set(() => ({isOverlay: overlay})),
+}));
+
+export {useLinkStore, useOverLayStore};
 
 
