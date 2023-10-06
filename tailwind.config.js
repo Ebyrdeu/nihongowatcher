@@ -8,7 +8,7 @@ module.exports = {
   theme: {
     extend: {
       margin: {
-        '20vh': '20vh'
+        '20vh': '20vh',
       },
       colors: {
         'primary': '#ef9995',
@@ -32,10 +32,12 @@ module.exports = {
     },
   },
   plugins: [
-    function({ addUtilities }) {
+    function ({ addUtilities }) {
       addUtilities({
-        '.backface-hidden': {
-          'backface-visibility': 'visible',
+        '.input-range': {
+          'input[type="range"]': {
+            'backgroundColor': '#EDE6D4',
+          },
         },
       });
     },

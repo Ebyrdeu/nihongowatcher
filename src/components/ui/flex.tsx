@@ -3,11 +3,12 @@ import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
 const flexVariants = cva(
-  'flex items-center justify-between',
+  'flex items-center',
   {
     variants: {
       variant: {
-        default: '',
+        default: ' justify-start',
+        between: 'justify-between'
       },
     },
     defaultVariants: {

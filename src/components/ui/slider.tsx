@@ -2,11 +2,11 @@ import React from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
 
-const sliderVariants = cva('rounded-md h-1 appearance-none cursor-pointer transition duration-150 ease-in-out',
+const sliderVariants = cva('rounded-md h-1 w-3/6  cursor-pointer transition duration-150 ease-in-out',
   {
     variants: {
       variant: {
-        default: 'bg-neutral-content/25 accent-neutral-content',
+        default: 'bg-neutral-content/25 accent-neutral-content input-range',
       },
     },
     defaultVariants: {
@@ -24,6 +24,9 @@ const Slider = React.forwardRef<HTMLInputElement, SliderProps>(
              min={0}
              max={100}
              type="range"
+             style={{
+
+             }}
              className={cn(sliderVariants({ variant, className }))} ref={ref}
              {...props}/>
     );

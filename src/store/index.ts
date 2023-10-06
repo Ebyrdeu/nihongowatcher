@@ -21,12 +21,14 @@ interface OverlayStore {
   isMuted: boolean;
   isVolume: boolean;
   isOverlay: boolean;
+  isCursor: boolean;
   setVolumeScale: (volume: string) => number;
   setPaused: (paused: boolean) => void;
   setFullscreen: (fullscreen: boolean) => void;
   setMute: (mute: boolean) => void;
   setVolume: (volume: boolean) => void;
   setOverlay: (overlay: boolean) => void;
+  setCursor: (cursor: boolean) => void;
 }
 
 const useLinkStore = create<LinkStore>((set) => ({
@@ -51,12 +53,14 @@ const useOverLayStore = create<OverlayStore>((set) => ({
   isMuted: false,
   isVolume: false,
   isOverlay: false,
+  isCursor: false,
   setPaused: (paused) => set(() => ({ isPaused: paused })),
   setFullscreen: (fullscreen) => set(() => ({ isFullscreen: fullscreen })),
   setMute: (mute) => set(() => ({ isMuted: mute })),
   setVolume: (volume) => set(() => ({ isVolume: volume })),
   setOverlay: (overlay) => set(() => ({ isOverlay: overlay })),
   setVolumeScale: (volume) => Math.min(100, Math.max(0, Number.parseFloat(volume))) / 100,
+  setCursor: (cursor) => set(() => ({ isCursor: cursor })),
 }));
 
 export { useLinkStore, useOverLayStore, type LinkDataProps };

@@ -1,4 +1,4 @@
-const EnterFullScreen = ({ color }: { color?: string }) => (
+const EnterFullScreenIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
        viewBox="0 0 24 24"
        strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -7,7 +7,7 @@ const EnterFullScreen = ({ color }: { color?: string }) => (
   </svg>
 );
 
-const ExitFullScreen = ({ color }: { color?: string }) => (
+const ExitFullScreenIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
        viewBox="0 0 24 24"
        strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -17,7 +17,7 @@ const ExitFullScreen = ({ color }: { color?: string }) => (
 
 );
 
-const Play = ({ color }: { color?: string }) => (
+const PlayIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
        viewBox="0 0 24 24"
        strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -27,7 +27,7 @@ const Play = ({ color }: { color?: string }) => (
 
 );
 
-const Pause = ({ color }: { color?: string }) => (
+const PauseIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
        viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
        className="w-6 h-6">
@@ -36,7 +36,7 @@ const Pause = ({ color }: { color?: string }) => (
   </svg>
 );
 
-const Stop = ({ color }: { color?: string }) => (
+const StopIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
        viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
        className="w-6 h-6">
@@ -46,7 +46,7 @@ const Stop = ({ color }: { color?: string }) => (
 
 );
 
-const VolumeOn = ({ color }: { color?: string }) => (
+const VolumeOnIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
        strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
     <path strokeLinecap="round" strokeLinejoin="round"
@@ -54,7 +54,7 @@ const VolumeOn = ({ color }: { color?: string }) => (
   </svg>
 );
 
-const VolumeMute = ({ color }: { color?: string }) => (
+const VolumeMuteIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
        viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
        className="w-6 h-6">
@@ -64,7 +64,7 @@ const VolumeMute = ({ color }: { color?: string }) => (
 
 );
 
-const NextEpisode = ({ color }: { color?: string }) => (
+const NextEpisodeIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
        strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
     <path strokeLinecap="round" strokeLinejoin="round"
@@ -73,7 +73,7 @@ const NextEpisode = ({ color }: { color?: string }) => (
 
 );
 
-const AddEpisode = ({ color }: { color?: string }) => (
+const AddEpisodeIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
        strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
@@ -81,7 +81,7 @@ const AddEpisode = ({ color }: { color?: string }) => (
 
 );
 
-const Subtitles = ({ color }: { color?: string }) => (
+const SubtitlesIcon = ({ color }: { color?: string }) => (
   <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
        strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
     <path strokeLinecap="round" strokeLinejoin="round"
@@ -90,14 +90,14 @@ const Subtitles = ({ color }: { color?: string }) => (
 );
 
 export {
-  EnterFullScreen,
-  ExitFullScreen,
-  Play,
-  Pause,
-  Stop,
-  VolumeOn,
-  VolumeMute,
-  NextEpisode,
-  AddEpisode,
-  Subtitles,
+  EnterFullScreenIcon,
+  ExitFullScreenIcon,
+  PlayIcon,
+  PauseIcon,
+  StopIcon,
+  VolumeOnIcon,
+  VolumeMuteIcon,
+  NextEpisodeIcon,
+  AddEpisodeIcon,
+  SubtitlesIcon,
 };
