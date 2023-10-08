@@ -1,103 +1,204 @@
-const EnterFullScreenIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
-       viewBox="0 0 24 24"
-       strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"/>
-  </svg>
-);
+'use client';
+import React from 'react';
 
-const ExitFullScreenIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
-       viewBox="0 0 24 24"
-       strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M9 9V4.5M9 9H4.5M9 9L3.75 3.75M9 15v4.5M9 15H4.5M9 15l-5.25 5.25M15 9h4.5M15 9V4.5M15 9l5.25-5.25M15 15h4.5M15 15v4.5m0-4.5l5.25 5.25"/>
-  </svg>
+export interface IconsProps extends React.ComponentPropsWithoutRef<'svg'> {
+  color?: string;
+  stroke?: string;
+  fill?: string;
+  clasName?: string;
+  width?: number;
+  height?: number;
+}
 
-);
+export function PlayIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <polygon points="5 3 19 12 5 21 5 3"/>
+    </svg>
 
-const PlayIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
-       viewBox="0 0 24 24"
-       strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z"/>
-  </svg>
+  );
+}
 
-);
+export function PauseIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <rect width="4" height="16" x="6" y="4"/>
+      <rect width="4" height="16" x="14" y="4"/>
+    </svg>
+  );
+}
 
-const PauseIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
-       viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-       className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M15.75 5.25v13.5m-7.5-13.5v13.5"/>
-  </svg>
-);
+export function SkipForwardIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <polygon points="5 4 15 12 5 20 5 4"/>
+      <line x1="19" x2="19" y1="5" y2="19"/>
+    </svg>
+  );
+}
 
-const StopIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
-       viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-       className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M5.25 7.5A2.25 2.25 0 017.5 5.25h9a2.25 2.25 0 012.25 2.25v9a2.25 2.25 0 01-2.25 2.25h-9a2.25 2.25 0 01-2.25-2.25v-9z"/>
-  </svg>
+export function VolumeIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+      <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  );
+}
 
-);
+export function VolumeXIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <line x1="22" x2="16" y1="9" y2="15"/>
+      <line x1="16" x2="22" y1="9" y2="15"/>
+    </svg>
+  );
+}
 
-const VolumeOnIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
-       strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M19.114 5.636a9 9 0 010 12.728M16.463 8.288a5.25 5.25 0 010 7.424M6.75 8.25l4.72-4.72a.75.75 0 011.28.53v15.88a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z"/>
-  </svg>
-);
+export function BadgePlusIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <path
+        d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/>
+      <line x1="12" x2="12" y1="8" y2="16"/>
+      <line x1="8" x2="16" y1="12" y2="12"/>
+    </svg>
+  );
+}
 
-const VolumeMuteIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none"
-       viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
-       className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M17.25 9.75L19.5 12m0 0l2.25 2.25M19.5 12l2.25-2.25M19.5 12l-2.25 2.25m-10.5-6l4.72-4.72a.75.75 0 011.28.531V19.94a.75.75 0 01-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.506-1.938-1.354A9.01 9.01 0 012.25 12c0-.83.112-1.633.322-2.395C2.806 8.757 3.63 8.25 4.51 8.25H6.75z"/>
-  </svg>
+export function SubtitlesIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <path d="M7 13h4"/>
+      <path d="M15 13h2"/>
+      <path d="M7 9h2"/>
+      <path d="M13 9h4"/>
+      <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
+    </svg>
+  );
+}
 
-);
+export function MinimizeIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <path d="M8 3v3a2 2 0 0 1-2 2H3"/>
+      <path d="M21 8h-3a2 2 0 0 1-2-2V3"/>
+      <path d="M3 16h3a2 2 0 0 1 2 2v3"/>
+      <path d="M16 21v-3a2 2 0 0 1 2-2h3"/>
+    </svg>
+  );
+}
 
-const NextEpisodeIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
-       strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M3 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062A1.125 1.125 0 013 16.81V8.688zM12.75 8.688c0-.864.933-1.405 1.683-.977l7.108 4.062a1.125 1.125 0 010 1.953l-7.108 4.062a1.125 1.125 0 01-1.683-.977V8.688z"/>
-  </svg>
+export function MaximizeIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
+      <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
+      <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
+      <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+    </svg>
+  );
+}
 
-);
-
-const AddEpisodeIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
-       strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15"/>
-  </svg>
-
-);
-
-const SubtitlesIcon = ({ color }: { color?: string }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" color={!color ? '#EDE6D4' : color} fill="none" viewBox="0 0 24 24"
-       strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-    <path strokeLinecap="round" strokeLinejoin="round"
-          d="M18.375 12.739l-7.693 7.693a4.5 4.5 0 01-6.364-6.364l10.94-10.94A3 3 0 1119.5 7.372L8.552 18.32m.009-.01l-.01.01m5.699-9.941l-7.81 7.81a1.5 1.5 0 002.112 2.13"/>
-  </svg>
-);
-
-export {
-  EnterFullScreenIcon,
-  ExitFullScreenIcon,
-  PlayIcon,
-  PauseIcon,
-  StopIcon,
-  VolumeOnIcon,
-  VolumeMuteIcon,
-  NextEpisodeIcon,
-  AddEpisodeIcon,
-  SubtitlesIcon,
-};
+export function UploadIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+      <polyline points="14 2 14 8 20 8"/>
+      <path d="M12 12v6"/>
+      <path d="m15 15-3-3-3 3"/>
+    </svg>
+  );
+}

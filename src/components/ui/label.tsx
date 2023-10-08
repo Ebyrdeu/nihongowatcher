@@ -1,42 +1,39 @@
+'use client';
+
 import React from 'react';
 import { cn } from '@/lib/utils';
+import * as LabelPrimitive from '@radix-ui/react-label';
 import { cva, type VariantProps } from 'class-variance-authority';
 
 const labelVariants = cva(
-  'flex flex-col items-center justify-center w-full h-96 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer',
+  'cursor-pointer text-neutral-content text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
   {
     variants: {
       variant: {
-        default: 'bg-base-100 dark:border-base-200 dark:hover:border-base-300',
-        dark: 'bg-base-200 dark:border-base-100 dark:hover:border-base-300',
-        darker: 'bg-base-300 dark:border-base-200 dark:hover:border-base-100',
-        night: 'bg-neutral',
+        upload: 'text-3xl flex flex-col items-center justify-center w-screen h-screen border-2 border-neutral-content hover:border-secondary transition duration-350 ease-in-out border-dashed trasnisition  cursor-pointer',
       },
     },
-    defaultVariants: {
-      variant: 'night',
-    },
-  },
-);
+  });
 
-export interface LabelProps extends React.HTMLAttributes<HTMLLabelElement>, VariantProps<typeof labelVariants> {
-  htmlFor: string;
+type LabelElement = React.ElementRef<typeof LabelPrimitive.Root>;
+
+interface LabelProps extends React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>,
+  VariantProps<typeof labelVariants> {
+  leftSection?: React.ReactNode
 }
 
-const Label = React.forwardRef<HTMLLabelElement, LabelProps>(
-  ({ className, variant, htmlFor, ...props }, ref) => {
-    return (
-      <label
-        htmlFor={htmlFor}
-        className={cn(labelVariants({ variant, className }))}
-        ref={ref}
-        {...props}
-      />
-    );
+const Label = React.forwardRef<LabelElement, LabelProps>(
+  ({ className, variant, leftSection, children, ...props }, ref) => {
+    return <LabelPrimitive.Root
+      className={cn(labelVariants({ variant, className }))}
+      ref={ref}
+      {...props}>
+      {leftSection && leftSection}
+      {children}
+    </LabelPrimitive.Root>;
   },
 );
 
-// Display name for the Label component
-Label.displayName = 'Label';
+Label.displayName = LabelPrimitive.Root.displayName;
 
 export { Label };

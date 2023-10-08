@@ -1,38 +1,29 @@
+'use client';
+
 import React from 'react';
-import { cva, type VariantProps } from 'class-variance-authority';
 import { cn } from '@/lib/utils';
+import { Slot } from '@radix-ui/react-slot';
 
-/**
- * Define video variants and their corresponding CSS classes.
- * @type {Function}
- */
-const videoVariants = cva('w-full m-auto', {
-  variants: {
-    variant: {
-      default: 'w-full',
-    },
-  },
-  defaultVariants: {
-    variant: 'default',
-  },
-});
+type VideoElement = React.ElementRef<'video'>;
 
-export interface VideoProps extends React.VideoHTMLAttributes<HTMLVideoElement>, VariantProps<typeof videoVariants> {
+interface VideoProps extends React.ComponentPropsWithoutRef<'video'> {
+  asChild?: boolean;
   subtitles?: string;
 }
 
-const Video = React.forwardRef<HTMLVideoElement, VideoProps>(
-  ({ className, controls = false, subtitles, variant, ...props }, ref) => {
-    return <video
+const Video = React.forwardRef<VideoElement, VideoProps>(
+  ({ className, controls = false, asChild, subtitles, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'video';
+    return <Comp
       autoPlay={true}
       controls={controls}
-      className={cn(videoVariants({ variant, className }))}
+      className={cn('w-full m-auto', className)}
       ref={ref}
       {...props}
     >
       {subtitles && <track kind="subtitles" src={subtitles}/>}
       Your browser does not support the video tag.
-    </video>;
+    </Comp>;
   },
 );
 

@@ -1,11 +1,7 @@
 import { type NextFont } from 'next/dist/compiled/@next/font';
-import { Inter } from 'next/font/google';
+import { Noto_Sans_JP } from 'next/font/google';
 
-/**
- * Represents the font configuration for Inter font.
- * @type {NextFont}
- */
-export const fontInter: NextFont = Inter({
+export const fontInter: NextFont = Noto_Sans_JP({
   subsets: ['latin'],
   variable: '--font-sans',
 });

@@ -1,39 +1,37 @@
+/*
 import { useCallback, useEffect, useRef } from 'react';
-import { useOverLayStore } from '@/store';
+import { useOverLayStore, useRefStore } from '@/store';
 
 export function useOverlayManipulations () {
   const { isFullscreen, setPaused, setFullscreen, setMute, setVolumeScale } = useOverLayStore();
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const divRef = useRef<HTMLDivElement>(null);
-  const sliderRef = useRef<HTMLInputElement>(null);
+  const {videoNode, fullscreenRef, volumeRef} = useRefStore()
 
   const togglePlayPause = useCallback(() => {
-    if (videoRef.current) {
-      videoRef.current.paused ? videoRef.current.play() : videoRef.current.pause();
-      setPaused(videoRef.current.paused);
+    if (videoNode.current) {
+      videoNode.current.paused ? videoNode.current.play() : videoNode.current.pause();
+      setPaused(videoNode.current.paused);
     }
-  }, [setPaused, videoRef]);
+  }, [setPaused, videoNode]);
 
   const toggleFullscreenMode = useCallback(() => {
-    if (divRef.current) {
-      if (document.fullscreenElement === null) void divRef.current.requestFullscreen();
+    if (fullscreenRef.current) {
+      if (document.fullscreenElement === null) void fullscreenRef.current.requestFullscreen();
       else void document.exitFullscreen();
       setFullscreen(!isFullscreen);
     }
-  }, [isFullscreen, setFullscreen, divRef]);
+  }, [isFullscreen, setFullscreen, fullscreenRef]);
 
   const toggleMuteVolume = useCallback(() => {
-    if (videoRef.current && sliderRef.current) {
-      const newVolume = videoRef.current.volume === 0 ? setVolumeScale(sliderRef.current.value) : 0;
-      videoRef.current.volume = newVolume;
+    if (videoNode.current && volumeRef.current) {
+      const newVolume = videoNode.current.volume === 0 ? setVolumeScale(volumeRef.current.value) : 0;
+      videoNode.current.volume = newVolume;
       setMute(newVolume === 0);
     }
-  }, [setMute, setVolumeScale, videoRef, sliderRef]);
+  }, [setMute, setVolumeScale, videoNode, volumeRef]);
 
   const handleVolumeChange = useCallback(() => {
-    if (videoRef.current && sliderRef.current) videoRef.current.volume = setVolumeScale(sliderRef.current.value);
-  }, [setVolumeScale, videoRef, sliderRef]);
+    if (videoNode.current && volumeRef.current) videoNode.current.volume = setVolumeScale(volumeRef.current.value);
+  }, [setVolumeScale, videoNode, volumeRef]);
 
   useEffect(() => {
 
@@ -51,10 +49,6 @@ export function useOverlayManipulations () {
   }, [togglePlayPause, toggleFullscreenMode, toggleMuteVolume]);
 
   return {
-    videoRef,
-    divRef,
-    sliderRef,
-
     togglePlayPause,
     toggleFullscreenMode,
     toggleMuteVolume,
@@ -63,3 +57,4 @@ export function useOverlayManipulations () {
   };
 }
 
+*/

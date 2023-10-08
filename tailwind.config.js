@@ -5,11 +5,9 @@ module.exports = {
     './src/components/**/*.{js,ts,jsx,tsx,mdx}',
     './src/app/**/*.{js,ts,jsx,tsx,mdx}',
   ],
+  darkMode: 'class',
   theme: {
     extend: {
-      margin: {
-        '20vh': '20vh',
-      },
       colors: {
         'primary': '#ef9995',
         'primary-content': '#282425',
@@ -31,15 +29,5 @@ module.exports = {
 
     },
   },
-  plugins: [
-    function ({ addUtilities }) {
-      addUtilities({
-        '.input-range': {
-          'input[type="range"]': {
-            'backgroundColor': '#EDE6D4',
-          },
-        },
-      });
-    },
-  ],
+  plugins: [],
 };

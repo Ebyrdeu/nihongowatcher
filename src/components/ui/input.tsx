@@ -1,18 +1,20 @@
+'use client';
+
 import React from 'react';
 import { cn } from '@/lib/utils';
+import { Slot } from '@radix-ui/react-slot';
 
-/**
- * Props for the VideoInput component, extending React's input attributes.
- * @interface VideoInputProps
- * @extends React.InputHTMLAttributes<HTMLInputElement>
- */
-export interface VideoInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+type InputElement = React.ElementRef<'input'>
+
+interface VideoInputProps extends React.ComponentPropsWithoutRef<'input'> {
+  asChild?: boolean;
 }
 
-const Input = React.forwardRef<HTMLInputElement, VideoInputProps>(
-  ({ className, type, accept, ...props }, ref) => {
+const Input = React.forwardRef<InputElement, VideoInputProps>(
+  ({ className, type, accept, asChild, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'input';
     return (
-      <input
+      <Comp
         className={cn('hidden', className)}
         type={!type ? 'file' : type}
         accept={accept}
