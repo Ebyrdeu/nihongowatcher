@@ -2,35 +2,41 @@
 
 import React, { useCallback } from 'react';
 import { Video } from '@/components/ui/video';
-import { useLinkStore, useOverLayStore, useRefStore } from '@/store';
+import { useOverLayStore, useRefStore, useSubtitleStore, useVideoStore } from '@/store';
 import { Box } from '@/components/ui/box';
 import Overlay from '@/components/overlay';
 
 const VideoPlayer = () => {
-  const { videoLink, episode } = useLinkStore();
-  const { setVideoNode } = useRefStore();
-  const { setVideoProgress } = useOverLayStore();
+  const { videoLink, episode } = useVideoStore();
+  const { subtitleLink } = useSubtitleStore();
+
+  const { setVideoNode, setFullscreenNode } = useRefStore();
+  const { setVideoProgress, setOverlay } = useOverLayStore();
 
   const videoRef = useCallback((node: HTMLVideoElement) => {
-    if (node !== null) {
-      void setVideoNode(node);
-    }
-  }, []);
+    if (node !== null) void setVideoNode(node);
+  }, [setVideoNode]);
 
-
+  const fullscreenRef = useCallback((node: HTMLDivElement) => {
+    if (node !== null) void setFullscreenNode(node);
+  }, [setFullscreenNode]);
 
   return (
-    <Box
-      ref={null}
-      variant={'center'}>
-      <Box>
+    <Box ref={fullscreenRef} variant={'center'}>
+      <Box
+        onMouseEnter={() => setOverlay(true)}
+        onMouseLeave={() => setOverlay(false)}
+      >
         <Video
-          onTimeUpdate={({currentTarget}) =>   setVideoProgress([(currentTarget.currentTime / currentTarget.duration) * 100])}
+          onTimeUpdate={({ currentTarget }) => setVideoProgress(
+            [(currentTarget.currentTime / currentTarget.duration) * 100])}
           ref={videoRef}
           src={videoLink[episode]?.link}
-          subtitles={''}
+          subtitles={subtitleLink}
         />
+
         <Overlay/>
+
       </Box>
     </Box>
   );

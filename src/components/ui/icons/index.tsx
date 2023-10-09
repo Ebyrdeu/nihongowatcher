@@ -64,7 +64,7 @@ export function SkipForwardIcon ({ color, stroke, fill, clasName, width, height 
   );
 }
 
-export function VolumeIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function VolumeMaxIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -79,6 +79,24 @@ export function VolumeIcon ({ color, stroke, fill, clasName, width, height }: Ic
       <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </svg>
+  );
+}
+
+export function VolumeLowIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
     </svg>
   );
 }
@@ -199,6 +217,58 @@ export function UploadIcon ({ color, stroke, fill, clasName, width, height }: Ic
       <polyline points="14 2 14 8 20 8"/>
       <path d="M12 12v6"/>
       <path d="m15 15-3-3-3 3"/>
+    </svg>
+  );
+}
+
+
+export function ChevronRightIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <path d="m9 18 6-6-6-6"/>
+    </svg>
+  );
+}
+
+export function CheckIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <polyline points="20 6 9 17 4 12"/>
+    </svg>
+  );
+}
+
+export function DotFilledIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+  return (
+    <svg xmlns="http://www.w3.org/2000/svg"
+         width={width ? width : '24'}
+         height={height ? height : '24'}
+         viewBox="0 0 24 24"
+         fill={fill ? fill : 'none'}
+         stroke={color ? color : '#EDE6D4'}
+         strokeWidth={stroke ? stroke : 2}
+         strokeLinecap="round"
+         strokeLinejoin="round"
+         className={clasName ? clasName : ''}>
+      <circle cx="12.1" cy="12.1" r="1"/>
     </svg>
   );
 }

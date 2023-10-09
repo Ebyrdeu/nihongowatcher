@@ -2,26 +2,26 @@
 
 import * as Store from 'zustand';
 
-interface LinkStore {
-  videoLink: LinkDataProps[];
+interface VideoStore {
+  videoLink: VideoDataProps[];
   episode: number,
   nextEpisode: () => void;
-  addEpisode: (link: LinkDataProps[]) => void;
+  addEpisode: (link: VideoDataProps[]) => void;
 }
 
-interface LinkDataProps {
+interface VideoDataProps {
   name: string,
   link: string
 }
 
-const useLinkStore = Store.create<LinkStore>((set) => ({
+const useVideoStore = Store.create<VideoStore>((set) => ({
   videoLink: [],
   episode: 0,
   nextEpisode: () => set(s => {
     if (s.videoLink.length - 1 === s.episode) return { episode: 0 };
     return { episode: s.episode + 1 };
   }),
-  addEpisode: (link: LinkDataProps[]) => set(
+  addEpisode: (link: VideoDataProps[]) => set(
     s => ({
       videoLink: [...s.videoLink, ...link].sort((a, b) => a.name.localeCompare(b.name)).map(value => ({
         name: value.name.replace(/\[[^\]]*]|\.\w+$/g, ''),
@@ -30,4 +30,4 @@ const useLinkStore = Store.create<LinkStore>((set) => ({
     })),
 }));
 
-export { useLinkStore, type LinkDataProps };
+export { useVideoStore, type VideoDataProps };

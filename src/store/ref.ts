@@ -12,9 +12,8 @@ interface RefStore {
 const useRefStore = Store.create<RefStore>((set) => ({
   videoNode: null,
   fullScreenNode: null,
-
-  setVideoNode: (node) => set(() => ({ videoNode: node})),
-  setFullscreenNode: (node) => set(() => ({ fullScreenNode: node})),
+  setVideoNode: (node) => set(() => ({ videoNode: node })),
+  setFullscreenNode: (node) => set(() => ({ fullScreenNode: node })),
 }));
 
 export { useRefStore };

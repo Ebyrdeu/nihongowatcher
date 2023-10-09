@@ -1,7 +1,7 @@
 import { type ChangeEvent } from 'react';
-import { type LinkDataProps } from '@/store';
+import { SubtitleDataProps, type VideoDataProps } from '@/store';
 
-export function uploadFiles (e: unknown, cb: (link: LinkDataProps[]) => void) {
+export function uploadFiles (e: unknown, cb: (link: VideoDataProps[] | SubtitleDataProps[]) => void) {
   (e as DragEvent).preventDefault();
   (e as DragEvent).stopPropagation();
 
@@ -15,6 +15,7 @@ export function uploadFiles (e: unknown, cb: (link: LinkDataProps[]) => void) {
     }));
     cb(links);
   }
+
 }
 
 export function DragFiles (e: unknown) {
