@@ -58,7 +58,7 @@ export const Controls = () => {
             onClick={onTogglePlay}
             leftSection={paused ? <PlayIcon/> : <PauseIcon stroke={'1.5'}/>}
           />
-          {videoLink.length < 2 ? null : <Button onClick={nextEpisode} leftSection={<SkipForwardIcon/>}/>}
+          {videoLink.length < 2 ? null : <Button ref={instanceOf} onClick={nextEpisode} leftSection={<SkipForwardIcon/>}/>}
 
           <Flex type={'inline'} gap={'sm'}>
             <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
