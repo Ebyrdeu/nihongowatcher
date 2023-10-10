@@ -1,12 +1,11 @@
 'use client';
 
-import React, { useCallback } from 'react';
-import { Video } from '@/components/ui/video';
+import { useCallback } from 'react';
+import { Box, Video } from '@/components/ui';
 import { useOverLayStore, useRefStore, useSubtitleStore, useVideoStore } from '@/store';
-import { Box } from '@/components/ui/box';
-import Overlay from '@/components/overlay';
+import { Controls } from '@/components/controls';
 
-const VideoPlayer = () => {
+export const VideoPlayer = () => {
   const { videoLink, episode } = useVideoStore();
   const { subtitleLink } = useSubtitleStore();
 
@@ -35,11 +34,9 @@ const VideoPlayer = () => {
           subtitles={subtitleLink}
         />
 
-        <Overlay/>
+        <Controls/>
 
       </Box>
     </Box>
   );
 };
-
-export default VideoPlayer;

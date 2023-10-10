@@ -1,8 +1,8 @@
 'use client';
 
 import { DragAndDrop } from '@/components/dragAndDrop';
-import { useSubtitleStore, useVideoStore } from '@/store';
-import VideoPlayer from '@/components/videoPlayer';
+import { VideoPlayer } from '@/components/videoPlayer';
+import { useVideoStore } from '@/store';
 
 export default function Home () {
   const { videoLink } = useVideoStore();

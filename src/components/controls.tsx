@@ -1,64 +1,46 @@
 'use client';
 
-import React, { useState } from 'react';
-import { Box } from '@/components/ui/box';
-import { Paragraph } from '@/components/ui/paragraph';
-import { Flex } from '@/components/ui/flex';
-import { Button } from '@/components/ui/button';
+import { useState } from 'react';
+import { Box, Button, Flex, Input, Label, Paragraph, Slider } from '@/components/ui';
 import {
   BadgePlusIcon,
   MaximizeIcon,
   MinimizeIcon,
   PauseIcon,
   PlayIcon,
-  SkipForwardIcon, SubtitlesIcon,
+  SkipForwardIcon,
+  SubtitlesIcon,
   VolumeLowIcon,
   VolumeMaxIcon,
   VolumeXIcon,
 } from '@/components/ui/icons';
-import { useSubtitleStore, useOverLayStore, useRefStore, useVideoStore } from '@/store';
-import { Slider } from '@/components/ui/slider';
+import { useOverLayStore, useRefStore, useSubtitleStore, useVideoStore } from '@/store';
 import { timeConverter, uploadFiles } from '@/lib/utils';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
+import { useToggleFullscreen, useTogglePause } from '@/hooks';
 
-const Overlay = () => {
+export const Controls = () => {
   const { videoLink, episode, nextEpisode, addEpisode } = useVideoStore();
-  const { addSubtitles} = useSubtitleStore();
-  const { videoNode, fullScreenNode } = useRefStore();
+  const { addSubtitles } = useSubtitleStore();
+  const { videoNode } = useRefStore();
   const { videoProgress, overlay, setVideoProgress } = useOverLayStore();
 
-  const [paused, setPaused] = useState(false);
-  const [fullscreen, setFullscreen] = useState(false);
+  const { paused, onTogglePlay } = useTogglePause();
+  const { fullscreen, onToggleFullscreen } = useToggleFullscreen();
   const [volume, setVolume] = useState(0.5);
-
-  if (!videoNode || !fullScreenNode) return null;
-
-  const onTogglePlay = () => {
-    if (!videoNode.paused) {
-      void videoNode.pause();
-      setPaused(true);
-    } else {
-      void videoNode.play();
-      setPaused(false);
-    }
-  };
-
-  const onToggleFullscreen = () => {
-    if (document.fullscreenElement === null) void fullScreenNode.requestFullscreen();
-    else void document.exitFullscreen();
-    setFullscreen(!fullscreen);
-  };
 
   const onProgressChange = (value: number[]) => {
     setVideoProgress(value);
-    videoNode.currentTime = (value[0] / 100) * videoNode.duration;
+    if (videoNode) videoNode.currentTime = (value[0] / 100) * videoNode.duration;
   };
 
   const onVolumeChange = (value: number[]) => {
-    videoNode.volume = value[0];
-    setVolume(videoNode.volume);
+    if (videoNode) {
+      videoNode.volume = value[0];
+      setVolume(videoNode.volume);
+    }
   };
+
+  const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
 
   const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume >= 0.1 && volume <= 0.5) ?
     <VolumeLowIcon/> : <VolumeMaxIcon/>;
@@ -85,13 +67,14 @@ const Overlay = () => {
       <Flex justify={'between'} specialLayout={'overlay'}>
         <Flex gap={'none'}>
           <Button
+            ref={instanceOf}
             onClick={onTogglePlay}
             leftSection={paused ? <PlayIcon/> : <PauseIcon stroke={'1.5'}/>}
           />
           {videoLink.length < 2 ? null : <Button onClick={nextEpisode} leftSection={<SkipForwardIcon/>}/>}
 
           <Flex type={'inline'} gap={'sm'}>
-            <Button leftSection={volumeIconRange}/>
+            <Button ref={instanceOf} leftSection={volumeIconRange}/>
             <Slider onValueChange={onVolumeChange}
                     track={'volume'}
                     variant={'volume'}
@@ -104,7 +87,7 @@ const Overlay = () => {
         </Flex>
         <Flex gap={'none'}>
           <Paragraph>{timeConverter(videoNode)}</Paragraph>
-          <Button size={'icon'}>
+          <Button ref={instanceOf} size={'icon'}>
             <Label htmlFor="add" leftSection={<BadgePlusIcon/>}/>
             <Input
               accept={'video/*, video/x-matroska'}
@@ -112,7 +95,7 @@ const Overlay = () => {
               id={'add'}
               multiple={true}/>
           </Button>
-          <Button size={'icon'}>
+          <Button ref={instanceOf} size={'icon'}>
             <Label htmlFor="subtitle" leftSection={<SubtitlesIcon/>}/>
             <Input
               accept={'.vtt, .srt'}
@@ -120,7 +103,10 @@ const Overlay = () => {
               id={'subtitle'}
               multiple={true}/>
           </Button>
-          <Button onClick={onToggleFullscreen} leftSection={fullscreen ? <MinimizeIcon/> : <MaximizeIcon/>}/>
+          <Button ref={instanceOf}
+                  onClick={onToggleFullscreen}
+                  leftSection={fullscreen ? <MinimizeIcon/> : <MaximizeIcon/>}
+          />
         </Flex>
 
       </Flex>
@@ -129,4 +115,3 @@ const Overlay = () => {
     ;
 };
 
-export default Overlay;

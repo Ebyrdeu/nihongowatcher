@@ -1,12 +1,9 @@
 'use client';
 
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { useSubtitleStore, useVideoStore } from '@/store';
+import { Box, Input, Label, Paragraph } from '@/components/ui';
+import { useVideoStore } from '@/store';
 import { DragFiles, uploadFiles } from '@/lib/utils';
 import { UploadIcon } from '@/components/ui/icons';
-import { Box } from '@/components/ui/box';
-import { Paragraph } from '@/components/ui/paragraph';
 
 export const DragAndDrop = () => {
   const { addEpisode } = useVideoStore();

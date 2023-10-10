@@ -37,6 +37,7 @@ const Button = React.forwardRef<ButtonElement, ButtonProps>(
   ({ className, size, variant, asChild, leftSection, children, ...props }, ref) => {
     const Comp = asChild ? Slot : 'button';
     return <Comp
+      tabIndex={-1}
       className={cn(buttonVariants({ variant, size, className }))}
       ref={ref}
       {...props}>
