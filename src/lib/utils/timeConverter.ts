@@ -11,5 +11,5 @@ export function timeConverter (videoNode: HTMLVideoElement) {
 
 function convertToTwoDigits (value: number) {
   const newValue = Math.floor(value);
-  return (newValue < 10 ? '0' : '') + newValue;
+  return String(newValue).padStart(2, '0');
 }
