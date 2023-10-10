@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { Box, Button, Flex, Input, Label, Paragraph, Slider } from '@/components/ui';
 import {
   BadgePlusIcon,
@@ -14,33 +13,21 @@ import {
   VolumeMaxIcon,
   VolumeXIcon,
 } from '@/components/ui/icons';
-import { useOverLayStore, useRefStore, useSubtitleStore, useVideoStore } from '@/store';
-import { timeConverter, uploadFiles } from '@/lib/utils';
-import { useToggleFullscreen, useTogglePause } from '@/hooks';
+import { useOverLayStore, useVideoStore } from '@/store';
+import { uploadVideoFiles } from '@/lib/utils';
+import { useFormatVideoTime, useProgress, useToggleFullscreen, useTogglePause, useVolume } from '@/hooks';
 
 export const Controls = () => {
   const { videoLink, episode, nextEpisode, addEpisode } = useVideoStore();
-  const { addSubtitles } = useSubtitleStore();
-  const { videoNode } = useRefStore();
-  const { videoProgress, overlay, setVideoProgress } = useOverLayStore();
+  const { overlay } = useOverLayStore();
 
   const { paused, onTogglePlay } = useTogglePause();
   const { fullscreen, onToggleFullscreen } = useToggleFullscreen();
-  const [volume, setVolume] = useState(0.5);
+  const { onProgressChange, videoProgress } = useProgress();
+  const { volume, onVolumeChange, onMuteVolume } = useVolume();
+  const videoClock = useFormatVideoTime();
 
-  const onProgressChange = (value: number[]) => {
-    setVideoProgress(value);
-    if (videoNode) videoNode.currentTime = (value[0] / 100) * videoNode.duration;
-  };
-
-  const onVolumeChange = (value: number[]) => {
-    if (videoNode) {
-      videoNode.volume = value[0];
-      setVolume(videoNode.volume);
-    }
-  };
-
-  const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
+  const instanceOf = (instance: HTMLButtonElement | HTMLInputElement | null) => instance && instance.blur();
 
   const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume >= 0.1 && volume <= 0.5) ?
     <VolumeLowIcon/> : <VolumeMaxIcon/>;
@@ -56,7 +43,7 @@ export const Controls = () => {
           onValueChange={onProgressChange}
           track={'progress'}
           variant={'progress'}
-          step={0.1}
+          step={0.4}
           min={0}
           max={100}
           value={videoProgress}
@@ -74,24 +61,25 @@ export const Controls = () => {
           {videoLink.length < 2 ? null : <Button onClick={nextEpisode} leftSection={<SkipForwardIcon/>}/>}
 
           <Flex type={'inline'} gap={'sm'}>
-            <Button ref={instanceOf} leftSection={volumeIconRange}/>
-            <Slider onValueChange={onVolumeChange}
-                    track={'volume'}
-                    variant={'volume'}
-                    value={[volume]}
-                    max={1}
-                    step={0.1}
-                    min={0}
+            <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
+            <Slider
+              onValueChange={onVolumeChange}
+              track={'volume'}
+              variant={'volume'}
+              value={[volume]}
+              max={1}
+              step={0.1}
+              min={0}
             />
           </Flex>
         </Flex>
         <Flex gap={'none'}>
-          <Paragraph>{timeConverter(videoNode)}</Paragraph>
+          <Paragraph>{videoClock}</Paragraph>
           <Button ref={instanceOf} size={'icon'}>
             <Label htmlFor="add" leftSection={<BadgePlusIcon/>}/>
             <Input
               accept={'video/*, video/x-matroska'}
-              onChange={e => uploadFiles(e, addEpisode)}
+              onChange={e => uploadVideoFiles(e, addEpisode)}
               id={'add'}
               multiple={true}/>
           </Button>
@@ -99,7 +87,6 @@ export const Controls = () => {
             <Label htmlFor="subtitle" leftSection={<SubtitlesIcon/>}/>
             <Input
               accept={'.vtt, .srt'}
-              onChange={e => uploadFiles(e, addSubtitles)}
               id={'subtitle'}
               multiple={true}/>
           </Button>

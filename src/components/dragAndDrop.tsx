@@ -2,7 +2,7 @@
 
 import { Box, Input, Label, Paragraph } from '@/components/ui';
 import { useVideoStore } from '@/store';
-import { DragFiles, uploadFiles } from '@/lib/utils';
+import { DragFiles, uploadVideoFiles } from '@/lib/utils';
 import { UploadIcon } from '@/components/ui/icons';
 
 export const DragAndDrop = () => {
@@ -13,7 +13,7 @@ export const DragAndDrop = () => {
       onDragEnter={DragFiles}
       onDragLeave={DragFiles}
       onDragOver={DragFiles}
-      onDrop={e => uploadFiles(e, addEpisode)}>
+      onDrop={e => uploadVideoFiles(e, addEpisode)}>
       <Label variant={'upload'} htmlFor="video">
         <UploadIcon clasName={'mb-2'} width={128} height={128} stroke={'1'}/>
         <Paragraph>
@@ -21,7 +21,7 @@ export const DragAndDrop = () => {
         </Paragraph>
       </Label>
       <Input accept={'video/*, video/x-matroska'}
-             onChange={e => uploadFiles(e, addEpisode)}
+             onChange={e => uploadVideoFiles(e, addEpisode)}
              id={'video'}
              multiple={true}/>
     </Box>

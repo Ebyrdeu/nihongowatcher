@@ -1,4 +1,4 @@
 export * from './merge';
 export * from './fonts';
-export * from './uploadFiles';
-export * from './timeConverter';
+export * from './uploadVideoFiles';
+export * from './convertToTwoDigits';

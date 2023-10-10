@@ -40,10 +40,8 @@ const Slider = React.forwardRef<SliderElement, SliderProps>(({ className, varian
   <SliderPrimitive.Root
     ref={ref}
     className={cn(sliderRootVariation({ variant, className }))}
-    {...props}
-  >
-    <SliderPrimitive.Track
-      className={cn(sliderTrackVariation({ track }))}>
+    {...props}>
+    <SliderPrimitive.Track className={cn(sliderTrackVariation({ track }))}>
       <SliderPrimitive.Range className="absolute  h-full bg-secondary"/>
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb
