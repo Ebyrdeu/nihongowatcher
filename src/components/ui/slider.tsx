@@ -22,8 +22,8 @@ const sliderTrackVariation = cva(
   {
     variants: {
       track: {
-        volume: 'duration-150 ease-in-out h-1 hover:h-2 rounded-full',
-        progress: 'duration-150 ease-in-out h-1 hover:h-3 delay-100 ',
+        volume: 'duration-150 ease-in-out h-1 hover:h-3 rounded-full',
+        progress: 'duration-150 ease-in-out h-1 hover:h-4 ',
       },
     },
   },
