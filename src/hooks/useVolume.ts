@@ -6,8 +6,8 @@ import { useRefStore } from '@/store';
 export function useVolume () {
   const { videoNode } = useRefStore();
 
-  const [volume, setVolume] = useState(0.5);
-  const [prevValue, setPrevValue] = useState(0.5);
+  const [volume, setVolume] = useState(0.1);
+  const [prevValue, setPrevValue] = useState(0.1);
 
   const onVolumeChange = useCallback((value: number[]) => {
     if (videoNode) {
@@ -30,13 +30,13 @@ export function useVolume () {
 
   const adjustVolumeBasedOnKey = useCallback((direction: number) => {
     if (videoNode && direction === 0) {
-      videoNode.volume -= 0.1;
-      return setVolume(videoNode.volume);
+      const res = videoNode.volume < 0.1 ? videoNode.volume = 0 : videoNode.volume += 0.1;
+      return setVolume(Number(res.toFixed(1)));
     }
 
     if (videoNode && direction === 1) {
-      videoNode.volume += 0.1;
-      return setVolume(videoNode.volume);
+      const res = videoNode.volume > 0.9 ? videoNode.volume = 1 : videoNode.volume += 0.1;
+      return setVolume(Number(res.toFixed(1)));
     }
 
   }, [videoNode]);

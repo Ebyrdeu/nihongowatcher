@@ -31,20 +31,19 @@ export const VideoPlayer = () => {
       if (document.fullscreenElement === null) fullScreenNode.requestFullscreen().then(() => setFullscreen(true));
       else document.exitFullscreen().then(() => setFullscreen(false));
     }
-  }, [fullScreenNode]);
+  }, [fullScreenNode, setFullscreen]);
 
   return (
     <Box ref={fullscreenRef} variant={'center'}>
       <Box
-        onClick={onTogglePlay}
-        onDoubleClick={onToggleFullscreen}
         onMouseEnter={() => setControls(true)}
         onMouseLeave={() => setControls(false)}
       >
         <Video
-          onLoadedData={e => e.currentTarget.volume = 0.5}
-          onTimeUpdate={({ currentTarget }) => setVideoProgress(
-            [(currentTarget.currentTime / currentTarget.duration) * 100])}
+          onClick={onTogglePlay}
+          onDoubleClick={onToggleFullscreen}
+          onLoadedData={e => e.currentTarget.volume = 0.1}
+          onTimeUpdate={({ currentTarget }) => setVideoProgress([(currentTarget.currentTime / currentTarget.duration) * 100])}
           ref={videoRef}
           src={videoLink[episode]?.link}
         />

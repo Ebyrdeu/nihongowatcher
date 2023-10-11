@@ -18,12 +18,12 @@ const sliderRootVariation = cva(
 );
 
 const sliderTrackVariation = cva(
-  'relative w-full grow overflow-hidden  bg-secondary/20',
+  'relative w-full grow overflow-hidden  bg-neutral-content/25',
   {
     variants: {
       track: {
-        volume: 'duration-150 ease-in-out h-1 hover:h-3 rounded-full',
-        progress: 'duration-150 ease-in-out h-1 hover:h-4 ',
+        volume: 'duration-200 ease-in-out h-1 hover:h-3 delay-500 hover:delay-0 rounded-full',
+        progress: 'duration-500 ease-in-out h-1 hover:h-4 delay-500 hover:delay-0 ',
       },
     },
   },
@@ -41,11 +41,11 @@ const Slider = React.forwardRef<SliderElement, SliderProps>(({ className, varian
     ref={ref}
     className={cn(sliderRootVariation({ variant, className }))}
     {...props}>
-    <SliderPrimitive.Track className={cn(sliderTrackVariation({ track }))}>
-      <SliderPrimitive.Range className="absolute  h-full bg-secondary"/>
+    <SliderPrimitive.Track  className={cn(sliderTrackVariation({ track }))}>
+      <SliderPrimitive.Range  className="absolute  h-full bg-neutral-content"/>
     </SliderPrimitive.Track>
     <SliderPrimitive.Thumb
-      className="block opacity-0 rounded-full border border-secondary/50 bg-secondary shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"/>
+      className="block opacity-0 rounded-full border border-neutral-content/50 bg-neutral-content shadow focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50"/>
   </SliderPrimitive.Root>
 ));
 

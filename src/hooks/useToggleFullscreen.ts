@@ -12,7 +12,7 @@ export function useToggleFullscreen () {
       if (document.fullscreenElement === null) fullScreenNode.requestFullscreen().then(() => setFullscreen(true));
       else document.exitFullscreen().then(() => setFullscreen(false));
     }
-  }, [fullScreenNode]);
+  }, [fullScreenNode, setFullscreen]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -28,7 +28,7 @@ export function useToggleFullscreen () {
       document.removeEventListener('keydown', handleKeyDown);
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
     };
-  }, [onToggleFullscreen]);
+  }, [onToggleFullscreen, setFullscreen]);
 
   return {
     fullscreen,
