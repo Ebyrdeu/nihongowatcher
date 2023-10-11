@@ -4,12 +4,14 @@ import { useCallback } from 'react';
 import { Box, Video } from '@/components/ui';
 import { useOverLayStore, useRefStore, useVideoStore } from '@/store';
 import { Controls } from '@/components/controls';
+import { useToggleFullscreen } from '@/hooks';
 
 export const VideoPlayer = () => {
   const { videoLink, episode } = useVideoStore();
 
   const { setVideoNode, setFullscreenNode } = useRefStore();
   const { setVideoProgress, setOverlay } = useOverLayStore();
+  const { onToggleFullscreen } = useToggleFullscreen();
 
   const videoRef = useCallback((node: HTMLVideoElement) => {
     if (node !== null) void setVideoNode(node);
@@ -22,6 +24,7 @@ export const VideoPlayer = () => {
   return (
     <Box ref={fullscreenRef} variant={'center'}>
       <Box
+        onDoubleClick={onToggleFullscreen}
         onMouseEnter={() => setOverlay(true)}
         onMouseLeave={() => setOverlay(false)}
       >
