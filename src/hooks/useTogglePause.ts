@@ -1,18 +1,18 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { useRefStore } from '@/store';
+import { useCallback, useEffect } from 'react';
+import { useControlStore, useRefStore } from '@/store';
 
 export function useTogglePause () {
   const { videoNode } = useRefStore();
-  const [paused, setPaused] = useState(false);
+  const { setPause, pause } = useControlStore();
 
   const onTogglePlay = useCallback(() => {
     if (videoNode) {
       videoNode.paused ? videoNode.play() : videoNode.pause();
-      setPaused(videoNode.paused);
+      setPause(videoNode.paused);
     }
-  }, [videoNode, setPaused]);
+  }, [videoNode, setPause]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => (event.key === ' ' || event.code === 'Space') && onTogglePlay();
@@ -25,7 +25,7 @@ export function useTogglePause () {
   }, [onTogglePlay]);
 
   return {
-    paused,
+    pause,
     onTogglePlay,
   };
 }

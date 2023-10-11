@@ -13,15 +13,15 @@ import {
   VolumeMaxIcon,
   VolumeXIcon,
 } from '@/components/ui/icons';
-import { useOverLayStore, useVideoStore } from '@/store';
+import { useControlStore, useVideoStore } from '@/store';
 import { uploadVideoFiles } from '@/lib/utils';
 import { useFormatVideoTime, useProgress, useToggleFullscreen, useTogglePause, useVolume } from '@/hooks';
 
 export const Controls = () => {
   const { videoLink, episode, nextEpisode, addEpisode } = useVideoStore();
-  const { overlay } = useOverLayStore();
+  const { controls } = useControlStore();
 
-  const { paused, onTogglePlay } = useTogglePause();
+  const { pause, onTogglePlay } = useTogglePause();
   const { fullscreen, onToggleFullscreen } = useToggleFullscreen();
   const { onProgressChange, videoProgress } = useProgress();
   const { volume, onVolumeChange, onMuteVolume } = useVolume();
@@ -33,7 +33,7 @@ export const Controls = () => {
     <VolumeLowIcon/> : <VolumeMaxIcon/>;
 
   return (
-    <Box className={`${overlay ? 'opacity-1' : 'opacity-0'} transition duration-300 ease-in-out `}>
+    <Box className={`${controls ? 'opacity-1' : 'opacity-0'} transition duration-300 ease-in-out `}>
       <Box asChild specialLayout={'overlay'}>
         <Paragraph className={'p-2'}>{videoLink[episode].name}</Paragraph>
       </Box>
@@ -56,9 +56,10 @@ export const Controls = () => {
           <Button
             ref={instanceOf}
             onClick={onTogglePlay}
-            leftSection={paused ? <PlayIcon/> : <PauseIcon stroke={'1.5'}/>}
+            leftSection={pause ? <PlayIcon/> : <PauseIcon stroke={'1.5'}/>}
           />
-          {videoLink.length < 2 ? null : <Button ref={instanceOf} onClick={nextEpisode} leftSection={<SkipForwardIcon/>}/>}
+          {videoLink.length < 2 ? null : <Button ref={instanceOf} onClick={nextEpisode}
+                                                 leftSection={<SkipForwardIcon/>}/>}
 
           <Flex type={'inline'} gap={'sm'}>
             <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>

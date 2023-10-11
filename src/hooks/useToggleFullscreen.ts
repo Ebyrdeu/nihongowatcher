@@ -1,11 +1,11 @@
 'use client';
 
-import { useCallback, useEffect, useState } from 'react';
-import { useRefStore } from '@/store';
+import { useCallback, useEffect } from 'react';
+import { useControlStore, useRefStore } from '@/store';
 
 export function useToggleFullscreen () {
-  const [fullscreen, setFullscreen] = useState(false);
   const { fullScreenNode } = useRefStore();
+  const { fullscreen, setFullscreen } = useControlStore();
 
   const onToggleFullscreen = useCallback(() => {
     if (fullScreenNode) {

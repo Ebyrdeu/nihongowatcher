@@ -2,16 +2,14 @@
 
 import { useCallback } from 'react';
 import { Box, Video } from '@/components/ui';
-import { useOverLayStore, useRefStore, useVideoStore } from '@/store';
+import { useControlStore, useRefStore, useVideoStore } from '@/store';
 import { Controls } from '@/components/controls';
-import { useToggleFullscreen } from '@/hooks';
 
 export const VideoPlayer = () => {
   const { videoLink, episode } = useVideoStore();
 
-  const { setVideoNode, setFullscreenNode } = useRefStore();
-  const { setVideoProgress, setOverlay } = useOverLayStore();
-  const { onToggleFullscreen } = useToggleFullscreen();
+  const { setVideoNode, setFullscreenNode, fullScreenNode, videoNode } = useRefStore();
+  const { setVideoProgress, setControls, setPause, setFullscreen } = useControlStore();
 
   const videoRef = useCallback((node: HTMLVideoElement) => {
     if (node !== null) void setVideoNode(node);
@@ -21,12 +19,27 @@ export const VideoPlayer = () => {
     if (node !== null) void setFullscreenNode(node);
   }, [setFullscreenNode]);
 
+  const onTogglePlay = useCallback(() => {
+    if (videoNode) {
+      videoNode.paused ? videoNode.play() : videoNode.pause();
+      setPause(videoNode.paused);
+    }
+  }, [videoNode, setPause]);
+
+  const onToggleFullscreen = useCallback(() => {
+    if (fullScreenNode) {
+      if (document.fullscreenElement === null) fullScreenNode.requestFullscreen().then(() => setFullscreen(true));
+      else document.exitFullscreen().then(() => setFullscreen(false));
+    }
+  }, [fullScreenNode]);
+
   return (
     <Box ref={fullscreenRef} variant={'center'}>
       <Box
+        onClick={onTogglePlay}
         onDoubleClick={onToggleFullscreen}
-        onMouseEnter={() => setOverlay(true)}
-        onMouseLeave={() => setOverlay(false)}
+        onMouseEnter={() => setControls(true)}
+        onMouseLeave={() => setControls(false)}
       >
         <Video
           onLoadedData={e => e.currentTarget.volume = 0.5}

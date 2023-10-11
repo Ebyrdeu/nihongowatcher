@@ -1,3 +1,3 @@
 export * from './ref';
-export * from './overlay';
+export * from './controls';
 export * from './link';

@@ -1,11 +1,11 @@
 'use client';
 
-import { useOverLayStore, useRefStore } from '@/store';
+import { useControlStore, useRefStore } from '@/store';
 import { useCallback, useEffect } from 'react';
 
 export function useProgress () {
   const { videoNode } = useRefStore();
-  const { setVideoProgress, videoProgress } = useOverLayStore();
+  const { setVideoProgress, videoProgress } = useControlStore();
 
   const onProgressChange = useCallback((value: number[]) => {
     if (videoNode) {
