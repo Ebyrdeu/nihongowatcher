@@ -23,8 +23,11 @@ import {
   useTogglePause,
   useVolume,
 } from '@/hooks';
+import { useState } from 'react';
 
 export const Controls = () => {
+  const [showVolumeBar, setShowVolumeBar] = useState(false);
+
   const { videoLink, episode, nextEpisode, addEpisode } = useVideoStore();
 
   const { controls } = useControlsActivity();
@@ -36,16 +39,16 @@ export const Controls = () => {
 
   const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
 
-  const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume >= 0.1 && volume <= 0.5) ?
+  const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume > 0  && volume < 0.5) ?
     <VolumeLowIcon/> : <VolumeMaxIcon/>;
 
   return (
-    <Box className={`${controls ? 'opacity-1' : 'opacity-0'} transition-opacity duration-700 ease-in-out`}>
+    <Box className={`${controls ? 'opacity-1' : 'opacity-0 delay-700'} transition-opacity duration-700 ease-in-out`}>
       <Box asChild specialLayout={'overlay'}>
-        <Paragraph className={'p-2'}>{videoLink[episode].name}</Paragraph>
+        <Paragraph className={'text-[#fff] p-2 text-3xl'}>{videoLink[episode].name}</Paragraph>
       </Box>
 
-      <Box asChild className={'absolute bottom-10 left-0 right-0'}>
+      <Box asChild className={'absolute bottom-12 left-0 right-0'}>
         <Slider
           onValueChange={onProgressChange}
           track={'progress'}
@@ -59,7 +62,7 @@ export const Controls = () => {
       </Box>
 
       <Flex justify={'between'} specialLayout={'overlay'}>
-        <Flex gap={'none'}>
+        <Flex gap={'xs'}>
           <Button
             ref={instanceOf}
             onClick={onTogglePlay}
@@ -70,22 +73,28 @@ export const Controls = () => {
             <Button ref={instanceOf} onClick={nextEpisode} leftSection={<SkipForwardIcon/>}/>
           }
 
-          <Flex type={'inline'} gap={'sm'}>
+          <Flex
+            onMouseEnter={() => setShowVolumeBar(true)}
+            onMouseLeave={() => setShowVolumeBar(false)}
+            type={'inline'}
+            gap={'sm'}
+          >
             <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
             <Slider
+              className={`${showVolumeBar ? 'opacity-1' : 'opacity-0 w-0'} duration-500`}
               onValueChange={onVolumeChange}
               track={'volume'}
               variant={'volume'}
               value={[volume]}
               max={1}
-              step={0.1}
+              step={0.01}
               min={0}
               onKeyDown={(event) => event.preventDefault()}
             />
           </Flex>
-        </Flex>
-        <Flex gap={'none'}>
           <Paragraph>{videoClock}</Paragraph>
+        </Flex>
+        <Flex gap={'xs'}>
           <Button ref={instanceOf} size={'icon'}>
             <Label htmlFor="add" leftSection={<BadgePlusIcon/>}/>
             <Input

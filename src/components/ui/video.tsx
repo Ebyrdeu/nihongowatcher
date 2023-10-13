@@ -14,9 +14,10 @@ const Video = React.forwardRef<VideoElement, VideoProps>(
   ({ className, controls = false, asChild, ...props }, ref) => {
     const Comp = asChild ? Slot : 'video';
     return <Comp
+      preload={'auto'}
       autoPlay={true}
       controls={controls}
-      className={cn('w-full m-auto', className)}
+      className={cn('h-screen m-auto', className)}
       ref={ref}
       {...props}
     >

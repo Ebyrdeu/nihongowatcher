@@ -12,7 +12,7 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-base-100 hover:bg-base-200',
         outline: 'bg-transparent border-2 border-rose-600 focus:outline-none',
-        transparent: 'bg-transparent focus:outline-none',
+        transparent: 'rounded-full my-1 hover:bg-neutral-content/20 transparent focus:outline-none',
       },
       size: {
         default: 'h-10 px-4 py-2',

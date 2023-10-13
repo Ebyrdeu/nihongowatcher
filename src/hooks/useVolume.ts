@@ -30,7 +30,7 @@ export function useVolume () {
 
   const adjustVolumeBasedOnKey = useCallback((direction: number) => {
     if (videoNode && direction === 0) {
-      const res = videoNode.volume < 0.1 ? videoNode.volume = 0 : videoNode.volume += 0.1;
+      const res = videoNode.volume < 0.1 ? videoNode.volume = 0 : videoNode.volume -= 0.1;
       return setVolume(Number(res.toFixed(1)));
     }
 

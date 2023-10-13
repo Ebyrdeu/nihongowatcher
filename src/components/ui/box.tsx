@@ -11,7 +11,7 @@ const boxVariants = cva(
     variants: {
       variant: {
         rounded: 'rounded-md',
-        center: 'w-1/2 m-auto mt-24 relative',
+        center: 'relative bg-[#000]',
       },
       specialLayout: {
         overlay: 'absolute top-0 left-0 right-0 transition duration-150 ease-in-out',

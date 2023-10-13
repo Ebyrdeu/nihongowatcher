@@ -16,7 +16,7 @@ export function PlayIcon ({ color, stroke, fill, clasName, width, height }: Icon
          width={width ? width : '24'}
          height={height ? height : '24'}
          viewBox="0 0 24 24"
-         fill={fill ? fill : 'none'}
+         fill={fill ? fill : '#EDE6D4'}
          stroke={color ? color : '#EDE6D4'}
          strokeWidth={stroke ? stroke : 2}
          strokeLinecap="round"
@@ -34,7 +34,7 @@ export function PauseIcon ({ color, stroke, fill, clasName, width, height }: Ico
          width={width ? width : '24'}
          height={height ? height : '24'}
          viewBox="0 0 24 24"
-         fill={fill ? fill : 'none'}
+         fill={fill ? fill : '#EDE6D4'}
          stroke={color ? color : '#EDE6D4'}
          strokeWidth={stroke ? stroke : 2}
          strokeLinecap="round"
@@ -76,7 +76,7 @@ export function VolumeMaxIcon ({ color, stroke, fill, clasName, width, height }:
          strokeLinecap="round"
          strokeLinejoin="round"
          className={clasName ? clasName : ''}>
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <polygon   fill={fill ? fill : '#EDE6D4'} points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
       <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
     </svg>
@@ -95,7 +95,7 @@ export function VolumeLowIcon ({ color, stroke, fill, clasName, width, height }:
          strokeLinecap="round"
          strokeLinejoin="round"
          className={clasName ? clasName : ''}>
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <polygon fill={fill ? fill : '#EDE6D4'} points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
     </svg>
   );
@@ -113,7 +113,7 @@ export function VolumeXIcon ({ color, stroke, fill, clasName, width, height }: I
          strokeLinecap="round"
          strokeLinejoin="round"
          className={clasName ? clasName : ''}>
-      <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+      <polygon fill={fill ? fill : '#EDE6D4'} points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
       <line x1="22" x2="16" y1="9" y2="15"/>
       <line x1="16" x2="22" y1="9" y2="15"/>
     </svg>
