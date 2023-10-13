@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 
-export interface IconsProps extends React.ComponentPropsWithoutRef<'svg'> {
+export interface IconProps extends React.ComponentPropsWithoutRef<'svg'> {
   color?: string;
   stroke?: string;
   fill?: string;
@@ -10,7 +10,7 @@ export interface IconsProps extends React.ComponentPropsWithoutRef<'svg'> {
   height?: number;
 }
 
-export function PlayIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function PlayIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -28,7 +28,7 @@ export function PlayIcon ({ color, stroke, fill, clasName, width, height }: Icon
   );
 }
 
-export function PauseIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function PauseIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -46,7 +46,7 @@ export function PauseIcon ({ color, stroke, fill, clasName, width, height }: Ico
   );
 }
 
-export function SkipForwardIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function SkipForwardIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -64,7 +64,7 @@ export function SkipForwardIcon ({ color, stroke, fill, clasName, width, height 
   );
 }
 
-export function VolumeMaxIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function VolumeMaxIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -83,7 +83,7 @@ export function VolumeMaxIcon ({ color, stroke, fill, clasName, width, height }:
   );
 }
 
-export function VolumeLowIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function VolumeLowIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -101,7 +101,7 @@ export function VolumeLowIcon ({ color, stroke, fill, clasName, width, height }:
   );
 }
 
-export function VolumeXIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function VolumeXIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -120,7 +120,7 @@ export function VolumeXIcon ({ color, stroke, fill, clasName, width, height }: I
   );
 }
 
-export function BadgePlusIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function BadgePlusIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -140,7 +140,7 @@ export function BadgePlusIcon ({ color, stroke, fill, clasName, width, height }:
   );
 }
 
-export function SubtitlesIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function SubtitlesIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -161,7 +161,7 @@ export function SubtitlesIcon ({ color, stroke, fill, clasName, width, height }:
   );
 }
 
-export function MinimizeIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function MinimizeIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -181,7 +181,7 @@ export function MinimizeIcon ({ color, stroke, fill, clasName, width, height }: 
   );
 }
 
-export function MaximizeIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function MaximizeIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}
@@ -201,7 +201,7 @@ export function MaximizeIcon ({ color, stroke, fill, clasName, width, height }: 
   );
 }
 
-export function UploadIcon ({ color, stroke, fill, clasName, width, height }: IconsProps) {
+export function UploadIcon ({ color, stroke, fill, clasName, width, height }: IconProps) {
   return (
     <svg xmlns="http://www.w3.org/2000/svg"
          width={width ? width : '24'}

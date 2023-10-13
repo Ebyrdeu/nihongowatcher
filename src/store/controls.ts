@@ -1,6 +1,6 @@
 'use client';
 
-import * as Store from 'zustand';
+import {create} from 'zustand';
 
 interface ControlStore {
   videoProgress: number[];
@@ -13,7 +13,7 @@ interface ControlStore {
   setFullscreen: (fullscreen: boolean) => void;
 }
 
-const useControlStore = Store.create<ControlStore>((set) => ({
+const useControlStore = create<ControlStore>((set) => ({
   videoProgress: [0],
   controls: false,
   pause: false,

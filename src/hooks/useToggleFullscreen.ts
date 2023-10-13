@@ -4,15 +4,15 @@ import { useCallback, useEffect } from 'react';
 import { useControlStore, useRefStore } from '@/store';
 
 export function useToggleFullscreen () {
-  const { fullScreenNode } = useRefStore();
+  const { fullscreenNode } = useRefStore();
   const { fullscreen, setFullscreen } = useControlStore();
 
   const onToggleFullscreen = useCallback(() => {
-    if (fullScreenNode) {
-      if (document.fullscreenElement === null) fullScreenNode.requestFullscreen().then(() => setFullscreen(true));
+    if (fullscreenNode) {
+      if (document.fullscreenElement === null) fullscreenNode.requestFullscreen().then(() => setFullscreen(true));
       else document.exitFullscreen().then(() => setFullscreen(false));
     }
-  }, [fullScreenNode, setFullscreen]);
+  }, [fullscreenNode, setFullscreen]);
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {

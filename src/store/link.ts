@@ -1,6 +1,6 @@
 'use client';
 
-import * as Store from 'zustand';
+import {create} from 'zustand';
 
 interface VideoStore {
   videoLink: VideoDataProps[];
@@ -14,7 +14,7 @@ interface VideoDataProps {
   link: string
 }
 
-const useVideoStore = Store.create<VideoStore>((set) => ({
+const useVideoStore = create<VideoStore>((set) => ({
   videoLink: [],
   episode: 0,
   nextEpisode: () => set(s => {

@@ -1,19 +1,19 @@
 'use client';
 
-import * as Store from 'zustand';
+import {create} from 'zustand';
 
 interface RefStore {
   videoNode: HTMLVideoElement | null;
-  fullScreenNode: HTMLDivElement | null;
-  setVideoNode: (node: HTMLVideoElement) => void;
-  setFullscreenNode: (node: HTMLDivElement) => void;
+  fullscreenNode: HTMLDivElement | null;
+  setVideoNode: (videoNode: HTMLVideoElement) => void;
+  setFullscreenNode: (fullscreenNode: HTMLDivElement) => void;
 }
 
-const useRefStore = Store.create<RefStore>((set) => ({
+const useRefStore = create<RefStore>((set) => ({
   videoNode: null,
-  fullScreenNode: null,
-  setVideoNode: (node) => set(() => ({ videoNode: node })),
-  setFullscreenNode: (node) => set(() => ({ fullScreenNode: node })),
+  fullscreenNode: null,
+  setVideoNode: (videoNode) => set(() => ({ videoNode })),
+  setFullscreenNode: (fullscreenNode) => set(() => ({ fullscreenNode })),
 }));
 
 export { useRefStore };
