@@ -15,7 +15,7 @@ export const DragAndDrop = () => {
       onDragOver={DragFiles}
       onDrop={e => uploadVideoFiles(e, addEpisode)}>
       <Label variant={'upload'} htmlFor="video">
-        <UploadIcon clasName={'mb-2'} width={128} height={128} stroke={'1'}/>
+        <UploadIcon/>
         <Paragraph>
           <span className="font-semibold text-secondary">Choose a file</span> or drag it here.
         </Paragraph>

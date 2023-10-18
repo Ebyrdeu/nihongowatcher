@@ -30,13 +30,13 @@ export function useVolume () {
 
   const adjustVolumeBasedOnKey = useCallback((direction: number) => {
     if (videoNode && direction === 0) {
-      const res = videoNode.volume < 0.1 ? videoNode.volume = 0 : videoNode.volume -= 0.1;
-      return setVolume(Number(res.toFixed(1)));
+      const res = videoNode.volume < 0.1 ? videoNode.volume = 0 : videoNode.volume -= 0.05;
+      return setVolume(Number(res.toFixed(2)));
     }
 
     if (videoNode && direction === 1) {
-      const res = videoNode.volume > 0.9 ? videoNode.volume = 1 : videoNode.volume += 0.1;
-      return setVolume(Number(res.toFixed(1)));
+      const res = videoNode.volume > 0.9 ? videoNode.volume = 1 : videoNode.volume += 0.05;
+      return setVolume(Number(res.toFixed(2)));
     }
 
   }, [videoNode]);
@@ -48,10 +48,17 @@ export function useVolume () {
       if (event.key === 'ArrowUp' || event.code === 'ArrowUp') adjustVolumeBasedOnKey(1);
     };
 
+    const handleWheel = (event: WheelEvent) => {
+      if (event.deltaY === 100) adjustVolumeBasedOnKey(0);
+      if (event.deltaY === -100) adjustVolumeBasedOnKey(1);
+    };
+
     document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener('wheel', handleWheel);
 
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener('wheel', handleWheel);
     };
   }, [adjustVolumeBasedOnKey, onMuteVolume]);
 

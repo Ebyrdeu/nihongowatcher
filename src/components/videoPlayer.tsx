@@ -10,7 +10,7 @@ export const VideoPlayer = () => {
   const { videoLink, episode } = useVideoStore();
 
   const { setVideoNode, setFullscreenNode, fullscreenNode, videoNode } = useRefStore();
-  const { setVideoProgress, setControls, setPause, setFullscreen } = useControlStore();
+  const { setVideoProgress, setPause, setFullscreen } = useControlStore();
 
   const videoRef = useCallback((node: HTMLVideoElement) => {
     if (node !== null) void setVideoNode(node);
@@ -41,12 +41,7 @@ export const VideoPlayer = () => {
   }, [setVideoProgress, videoNode]);
 
   return (
-    <Box
-      ref={fullscreenRef}
-      variant={'center'}
-      onMouseEnter={() => setControls(true)}
-      onMouseLeave={() => setControls(false)}
-    >
+    <Box ref={fullscreenRef} variant={'center'}>
       <Video
         onClick={onTogglePlay}
         onDoubleClick={onToggleFullscreen}

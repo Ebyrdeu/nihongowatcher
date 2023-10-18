@@ -24,13 +24,14 @@ import {
   useVolume,
 } from '@/hooks';
 import { useState } from 'react';
+import { Tooltip } from '@/components/ui/tooltip';
 
 export const Controls = () => {
   const [showVolumeBar, setShowVolumeBar] = useState(false);
 
   const { videoLink, episode, nextEpisode, addEpisode } = useVideoStore();
 
-  const { controls } = useControlsActivity();
+  const { isIdle } = useControlsActivity(1000);
   const { pause, onTogglePlay } = useTogglePause();
   const { fullscreen, onToggleFullscreen } = useToggleFullscreen();
   const { onProgressChange, videoProgress } = useProgress();
@@ -42,8 +43,10 @@ export const Controls = () => {
   const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume > 0  && volume < 0.5) ?
     <VolumeLowIcon/> : <VolumeMaxIcon/>;
 
+
+
   return (
-    <Box className={`${controls ? 'opacity-1' : 'opacity-0 delay-700'} transition-opacity duration-700 ease-in-out`}>
+    <Box className={`${isIdle ? 'opacity-1 cursor-default' : 'opacity-0 delay-700'} transition-opacity duration-700 ease-in-out`}>
       <Box asChild specialLayout={'overlay'}>
         <Paragraph className={'text-[#fff] p-2 text-3xl'}>{videoLink[episode].name}</Paragraph>
       </Box>
@@ -66,7 +69,7 @@ export const Controls = () => {
           <Button
             ref={instanceOf}
             onClick={onTogglePlay}
-            leftSection={pause ? <PlayIcon/> : <PauseIcon stroke={'1.5'}/>}
+            leftSection={pause ? <PlayIcon/> : <PauseIcon />}
           />
 
           {videoLink.length < 2 ? null :
@@ -80,6 +83,7 @@ export const Controls = () => {
             gap={'sm'}
           >
             <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
+          <Tooltip value={`${volume * 100}%`}>
             <Slider
               className={`${showVolumeBar ? 'opacity-1' : 'opacity-0 w-0'} duration-500`}
               onValueChange={onVolumeChange}
@@ -91,6 +95,7 @@ export const Controls = () => {
               min={0}
               onKeyDown={(event) => event.preventDefault()}
             />
+          </Tooltip>
           </Flex>
           <Paragraph>{videoClock}</Paragraph>
         </Flex>

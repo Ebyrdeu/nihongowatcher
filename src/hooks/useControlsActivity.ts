@@ -1,9 +1,25 @@
-import { useControlStore } from '@/store';
+import { useCallback, useEffect, useState } from 'react';
 
-export function useControlsActivity () {
-  const { controls } = useControlStore();
+export function useControlsActivity (idleTime: number) {
+  const [isIdle, setIsIdle] = useState(true);
+
+  const handleIdle = useCallback(() => {
+
+  }, []);
+
+  useEffect(() => {
+
+    window.addEventListener('mousemove', handleIdle);
+    window.addEventListener('keydown', handleIdle);
+
+    return () => {
+      window.removeEventListener('mousemove', handleIdle);
+      window.removeEventListener('keydown', handleIdle);
+    };
+
+  }, [handleIdle]);
 
   return {
-    controls,
+    isIdle,
   };
 }
