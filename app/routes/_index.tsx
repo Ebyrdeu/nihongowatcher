@@ -6,7 +6,14 @@ import {VideoPlayer} from "@/components/video-player";
 export const meta: MetaFunction = () => {
     return [
         {title: "日本語 Watcher"},
-        {name: "A Video Player to watch Japanese Videos with your favorite pocket dictionary"},
+        {
+            property: "og:title",
+            content: "日本語 Watcher",
+        },
+        {
+            name: "description",
+            content: "A Video Player to watch Japanese Videos with your favorite pocket dictionary",
+        },
     ];
 };
 

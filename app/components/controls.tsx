@@ -1,6 +1,7 @@
 import {Box, Button, Flex, Input, Label, Paragraph, Slider} from "@/components/ui";
 import {
     BadgePlusIcon,
+    EpisodeListIcon,
     MaximizeIcon,
     MinimizeIcon,
     PauseIcon,
@@ -98,6 +99,7 @@ export const Controls = () => {
                     <Paragraph>{videoClock}</Paragraph>
                 </Flex>
                 <Flex gap={"xs"}>
+
                     <Button ref={instanceOf} size={"icon"}>
                         <Label htmlFor="add" leftSection={<BadgePlusIcon/>}/>
                         <Input
@@ -106,6 +108,7 @@ export const Controls = () => {
                             id={"add"}
                             multiple={true}/>
                     </Button>
+
                     <Button ref={instanceOf} size={"icon"}>
                         <Label htmlFor="subtitle" leftSection={<SubtitlesIcon/>}/>
                         <Input
@@ -113,6 +116,12 @@ export const Controls = () => {
                             id={"subtitle"}
                             multiple={true}/>
                     </Button>
+
+                    <Button ref={instanceOf}
+                            onClick={onToggleFullscreen}
+                            leftSection={<EpisodeListIcon/>}
+                    />
+
                     <Button ref={instanceOf}
                             onClick={onToggleFullscreen}
                             leftSection={fullscreen ? <MinimizeIcon/> : <MaximizeIcon/>}

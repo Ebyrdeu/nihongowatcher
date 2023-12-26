@@ -22,7 +22,7 @@ const useVideoStore = create<VideoStore>((set) => ({
     addEpisode: (link: VideoDataProps[]) => set(
         s => ({
             videoLink: [...s.videoLink, ...link].sort((a, b) => a.name.localeCompare(b.name)).map(value => ({
-                name: value.name.replace(/\[[^\]]*]|\.\w+$/g, ""),
+                name: value.name.replace(/\[[^\]]*]|\.\w+$|\([^)]*\)/g, ""),
                 link: value.link,
             })),
         })),
