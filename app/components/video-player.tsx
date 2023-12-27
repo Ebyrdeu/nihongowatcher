@@ -4,6 +4,7 @@ import {useControlStore, useRefStore, useVideoStore} from "@/store";
 import {Controls} from "@/components/controls";
 import Subtitles from "@/components/subtitles";
 import {useSubtitle} from "@/hooks";
+import {VideoList} from "@/components/video-list";
 
 export const VideoPlayer = () => {
     const {videoLink, episode} = useVideoStore();
@@ -56,6 +57,7 @@ export const VideoPlayer = () => {
             />
             <Subtitles/>
             <Controls/>
+            <VideoList/>
         </Box>
     );
 };

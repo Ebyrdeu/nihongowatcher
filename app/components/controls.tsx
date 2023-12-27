@@ -12,7 +12,7 @@ import {
     VolumeMaxIcon,
     VolumeXIcon,
 } from "@/components/ui/icons";
-import {useVideoStore} from "@/store";
+import {useListStore, useSubtitleStore, useVideoStore} from "@/store";
 import {uploadVideoFiles} from "@/lib";
 import {
     useControlsActivity,
@@ -25,7 +25,6 @@ import {
 import {useState} from "react";
 import {Tooltip} from "@/components/ui/tooltip";
 import {uploadSubtitleFile} from "@/lib/upload-subtitle-file";
-import {useSubtitleStore} from "@/store/use-subtitle-store";
 
 export const Controls = () => {
     const [showVolumeBar, setShowVolumeBar] = useState(false);
@@ -38,6 +37,7 @@ export const Controls = () => {
     const {onProgressChange, videoProgress} = useProgress();
     const {volume, onVolumeChange, onMuteVolume} = userVolume();
     const {setSubtitles} = useSubtitleStore();
+    const {setOpen} = useListStore();
     const videoClock = useFormatVideoTime();
 
     const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
@@ -122,7 +122,7 @@ export const Controls = () => {
                     </Button>
 
                     <Button ref={instanceOf}
-                            onClick={onToggleFullscreen}
+                            onClick={setOpen}
                             leftSection={<EpisodeListIcon/>}
                     />
 

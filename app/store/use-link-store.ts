@@ -4,6 +4,7 @@ interface VideoStore {
     videoLink: VideoDataProps[];
     episode: number,
     nextEpisode: () => void;
+    setEpisode: (episode: number) => void;
     addEpisode: (link: VideoDataProps[]) => void;
 }
 
@@ -15,6 +16,7 @@ interface VideoDataProps {
 const useVideoStore = create<VideoStore>((set) => ({
     videoLink: [],
     episode: 0,
+    setEpisode: (episode) => set(() => ({episode})),
     nextEpisode: () => set(s => {
         if (s.videoLink.length - 1 === s.episode) return {episode: 0};
         return {episode: s.episode + 1};
