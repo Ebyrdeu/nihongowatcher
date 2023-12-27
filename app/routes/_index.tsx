@@ -20,7 +20,7 @@ export const meta: MetaFunction = () => {
 export default function Index() {
     const {videoLink} = useVideoStore();
     return (
-        <div style={{fontFamily: "system-ui, sans-serif", lineHeight: "1.8"}}>
+        <div style={{fontFamily: "Netflix Sans,Helvetica Nueue,Helvetica,Arial,sans-serif", lineHeight: "1.8"}}>
             {videoLink.length <= 0 ? <DragAndDrop/> : <VideoPlayer/>}
         </div>
     );

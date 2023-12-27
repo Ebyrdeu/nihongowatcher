@@ -1,6 +1,6 @@
 import {useCallback, useEffect} from "react";
 import {useControlStore, useRefStore} from "@/store";
-import {useSubtitleStore} from "@/store/use-subtitle";
+import {useSubtitleStore} from "@/store/use-subtitle-store";
 
 export const useTogglePause = () => {
     const {videoNode} = useRefStore();

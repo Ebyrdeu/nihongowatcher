@@ -24,6 +24,8 @@ import {
 } from "@/hooks";
 import {useState} from "react";
 import {Tooltip} from "@/components/ui/tooltip";
+import {uploadSubtitleFile} from "@/lib/upload-subtitle-file";
+import {useSubtitleStore} from "@/store/use-subtitle-store";
 
 export const Controls = () => {
     const [showVolumeBar, setShowVolumeBar] = useState(false);
@@ -35,6 +37,7 @@ export const Controls = () => {
     const {fullscreen, onToggleFullscreen} = useToggleFullscreen();
     const {onProgressChange, videoProgress} = useProgress();
     const {volume, onVolumeChange, onMuteVolume} = userVolume();
+    const {setSubtitles} = useSubtitleStore();
     const videoClock = useFormatVideoTime();
 
     const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
@@ -114,6 +117,7 @@ export const Controls = () => {
                         <Input
                             accept={".vtt, .srt"}
                             id={"subtitle"}
+                            onChange={e => uploadSubtitleFile(e, setSubtitles)}
                             multiple={true}/>
                     </Button>
 
