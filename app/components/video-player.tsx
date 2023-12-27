@@ -7,7 +7,7 @@ import {useSubtitle} from "@/hooks";
 import {VideoList} from "@/components/video-list";
 
 export const VideoPlayer = () => {
-    const {videoLink, episode} = useVideoStore();
+    const {videoLink, video} = useVideoStore();
 
     const {setVideoNode, setFullscreenNode, fullscreenNode, videoNode} = useRefStore();
     const {setVideoProgress, setPause, setFullscreen} = useControlStore();
@@ -53,7 +53,7 @@ export const VideoPlayer = () => {
                     setSubtitlesToCurrentVideoProgress(e);
                 }}
                 ref={videoRef}
-                src={videoLink[episode]?.link}
+                src={videoLink[video]?.link}
             />
             <Subtitles/>
             <Controls/>

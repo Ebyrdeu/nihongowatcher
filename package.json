@@ -13,6 +13,7 @@
   "dependencies": {
     "@radix-ui/react-accessible-icon": "^1.0.3",
     "@radix-ui/react-label": "^2.0.2",
+    "@radix-ui/react-scroll-area": "^1.0.5",
     "@radix-ui/react-slider": "^1.1.2",
     "@radix-ui/react-tooltip": "^1.0.7",
     "@remix-run/css-bundle": "^2.4.1",

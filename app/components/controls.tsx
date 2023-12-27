@@ -29,7 +29,7 @@ import {uploadSubtitleFile} from "@/lib/upload-subtitle-file";
 export const Controls = () => {
     const [showVolumeBar, setShowVolumeBar] = useState(false);
 
-    const {videoLink, episode, nextEpisode, addEpisode} = useVideoStore();
+    const {videoLink, video, nextVideo, addVideo} = useVideoStore();
 
     const {isIdle} = useControlsActivity(1000);
     const {pause, onTogglePlay} = useTogglePause();
@@ -50,7 +50,7 @@ export const Controls = () => {
         <Box
             className={`${isIdle ? "opacity-1 cursor-default" : "opacity-0 delay-700"} transition-opacity duration-700 ease-in-out`}>
             <Box asChild specialLayout={"overlay"}>
-                <Paragraph className={"text-[#fff] p-2 text-3xl"}>{videoLink[episode].name}</Paragraph>
+                <Paragraph className={"text-[#fff] p-2 text-3xl"}>{videoLink[video].name}</Paragraph>
             </Box>
 
             <Box asChild className={"absolute bottom-12 left-0 right-0"}>
@@ -75,7 +75,7 @@ export const Controls = () => {
                     />
 
                     {videoLink.length < 2 ? null :
-                        <Button ref={instanceOf} onClick={nextEpisode} leftSection={<SkipForwardIcon/>}/>
+                        <Button ref={instanceOf} onClick={nextVideo} leftSection={<SkipForwardIcon/>}/>
                     }
 
                     <Flex
@@ -107,7 +107,7 @@ export const Controls = () => {
                         <Label htmlFor="add" leftSection={<BadgePlusIcon/>}/>
                         <Input
                             accept={"video/*, video/x-matroska"}
-                            onChange={e => uploadVideoFiles(e, addEpisode)}
+                            onChange={e => uploadVideoFiles(e, addVideo)}
                             id={"add"}
                             multiple={true}/>
                     </Button>
@@ -134,7 +134,6 @@ export const Controls = () => {
 
             </Flex>
         </Box>
-    )
-        ;
+    );
 };
 

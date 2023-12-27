@@ -41,11 +41,6 @@ export const userVolume = () => {
     }, [videoNode]);
 
 
-    const onWheelVolumeChange = useCallback((event: WheelEvent) => {
-        const direction = event.deltaY < 0 ? Direction.UP : Direction.DOWN;
-        adjustVolumeBasedOnKey(direction);
-    }, [adjustVolumeBasedOnKey]);
-
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "m" || event.code === "m") onMuteVolume();
@@ -55,12 +50,10 @@ export const userVolume = () => {
 
 
         document.addEventListener("keydown", handleKeyDown);
-        document.addEventListener("wheel", onWheelVolumeChange);
         return () => {
             document.removeEventListener("keydown", handleKeyDown);
-            document.addEventListener("wheel", onWheelVolumeChange);
         };
-    }, [adjustVolumeBasedOnKey, onMuteVolume, onWheelVolumeChange]);
+    }, [adjustVolumeBasedOnKey, onMuteVolume]);
 
     return {
         volume,

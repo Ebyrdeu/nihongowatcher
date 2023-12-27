@@ -1,5 +1,5 @@
 import React from "react";
-import {Box, Paragraph} from "@/components/ui";
+import {Box, Paragraph, ScrollArea} from "@/components/ui";
 import {useSubtitleStore} from "@/store/use-subtitle-store";
 
 const Subtitles = () => {
