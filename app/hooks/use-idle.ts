@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export const useIdle = (idleTime: number = 3000): boolean => {
+export const useIdle = (idleTime: number = 1500): boolean => {
     const [isIdle, setIsIdle] = useState<boolean>(false);
 
     useEffect(() => {
