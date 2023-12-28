@@ -3,10 +3,12 @@ import {Box, Video} from "@/components/ui";
 import {useControlStore, useRefStore, useVideoStore} from "@/store";
 import {Controls} from "@/components/controls";
 import Subtitles from "@/components/subtitles";
-import {useSubtitle} from "@/hooks";
+import {useIdle, useSubtitle} from "@/hooks";
 import {VideoList} from "@/components/video-list";
 
 export const VideoPlayer = () => {
+    const isIdle = useIdle();
+
     const {videoLink, video} = useVideoStore();
 
     const {setVideoNode, setFullscreenNode, fullscreenNode, videoNode} = useRefStore();
@@ -43,7 +45,8 @@ export const VideoPlayer = () => {
 
 
     return (
-        <Box ref={fullscreenRef} variant={"center"}>
+        <Box className={isIdle ? "cursor-none" : ""}
+             ref={fullscreenRef} variant={"center"}>
             <Video
                 onClick={onTogglePlay}
                 onDoubleClick={onToggleFullscreen}
@@ -56,9 +59,11 @@ export const VideoPlayer = () => {
                 src={videoLink[video]?.link}
             />
             <Subtitles/>
-            <Controls/>
-            <VideoList/>
+
+            <div className={`ease-in-out duration-150 ${!isIdle ? "opacity-100" : "opacity-0"}`}>
+                <Controls/>
+                <VideoList/>
+            </div>
         </Box>
     );
 };
-

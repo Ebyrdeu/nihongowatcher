@@ -1,13 +1,13 @@
 import {Box, Button, Flex, Input, Label, Paragraph, Slider} from "@/components/ui";
 import {
-    BadgePlusIcon,
+    AddSubtitlesIcon,
+    AddVideoIcon,
     EpisodeListIcon,
     MaximizeIcon,
     MinimizeIcon,
     PauseIcon,
     PlayIcon,
     SkipForwardIcon,
-    SubtitlesIcon,
     VolumeLowIcon,
     VolumeMaxIcon,
     VolumeXIcon,
@@ -15,15 +15,13 @@ import {
 import {useListStore, useSubtitleStore, useVideoStore} from "@/store";
 import {uploadVideoFiles} from "@/lib";
 import {
-    useControlsActivity,
     useFormatVideoTime,
     useProgress,
     userVolume,
     useToggleFullscreen,
     useTogglePause,
 } from "@/hooks";
-import {useState} from "react";
-import {Tooltip} from "@/components/ui/tooltip";
+import React, {useState} from "react";
 import {uploadSubtitleFile} from "@/lib/upload-subtitle-file";
 
 export const Controls = () => {
@@ -31,7 +29,6 @@ export const Controls = () => {
 
     const {videoLink, video, nextVideo, addVideo} = useVideoStore();
 
-    const {isIdle} = useControlsActivity(1000);
     const {pause, onTogglePlay} = useTogglePause();
     const {fullscreen, onToggleFullscreen} = useToggleFullscreen();
     const {onProgressChange, videoProgress} = useProgress();
@@ -47,45 +44,42 @@ export const Controls = () => {
 
 
     return (
-        <Box
-            className={`${isIdle ? "opacity-1 cursor-default" : "opacity-0 delay-700"} transition-opacity duration-700 ease-in-out`}>
-            <Box asChild specialLayout={"overlay"}>
-                <Paragraph className={"text-[#fff] p-2 text-3xl"}>{videoLink[video].name}</Paragraph>
-            </Box>
-
-            <Box asChild className={"absolute bottom-12 left-0 right-0"}>
-                <Slider
-                    onValueChange={onProgressChange}
-                    track={"progress"}
-                    variant={"progress"}
-                    step={0.1}
-                    min={0}
-                    max={100}
-                    value={videoProgress}
-                    onKeyDown={(event) => event.preventDefault()}
-                />
-            </Box>
-
-            <Flex justify={"between"} specialLayout={"overlay"}>
-                <Flex gap={"xs"}>
-                    <Button
-                        ref={instanceOf}
-                        onClick={onTogglePlay}
-                        leftSection={pause ? <PlayIcon/> : <PauseIcon/>}
+        <Box className={"absolute bottom-0 left-0 right-0 pl-8 pr-8"}
+             style={{backgroundImage: "linear-gradient(0deg,rgba(0,0,0,.3) 0,transparent)"}}>
+            <Flex className={"py-9"} gap={"md"} direction={"col"} justify={"start"} align={"between"}>
+                <Flex align={"center"}>
+                    <Slider
+                        onValueChange={onProgressChange}
+                        track={"progress"}
+                        variant={"progress"}
+                        step={0.1}
+                        min={0}
+                        max={100}
+                        value={videoProgress}
+                        onKeyDown={(event) => event.preventDefault()}
                     />
+                    <Paragraph style={{textShadow: "0 0 7px #000"}}
+                               className={"text-white"}>{videoClock}</Paragraph>
+                </Flex>
+                <Flex justify={"between"}>
+                    <Flex gap={"lg"}>
+                        <Button
+                            ref={instanceOf}
+                            onClick={onTogglePlay}
+                            leftSection={pause ? <PlayIcon/> : <PauseIcon/>}
+                        />
 
-                    {videoLink.length < 2 ? null :
-                        <Button ref={instanceOf} onClick={nextVideo} leftSection={<SkipForwardIcon/>}/>
-                    }
+                        {videoLink.length < 2 ? null :
+                            <Button ref={instanceOf} onClick={nextVideo} leftSection={<SkipForwardIcon/>}/>
+                        }
 
-                    <Flex
-                        onMouseEnter={() => setShowVolumeBar(true)}
-                        onMouseLeave={() => setShowVolumeBar(false)}
-                        type={"inline"}
-                        gap={"sm"}
-                    >
-                        <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
-                        <Tooltip value={`${(volume * 100).toFixed(0)}%`}>
+                        <Flex
+                            onMouseEnter={() => setShowVolumeBar(true)}
+                            onMouseLeave={() => setShowVolumeBar(false)}
+                            type={"inline"}
+                            gap={"sm"}
+                        >
+                            <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
                             <Slider
                                 className={`${showVolumeBar ? "opacity-1" : "opacity-0 w-0"} duration-500`}
                                 onValueChange={onVolumeChange}
@@ -97,41 +91,41 @@ export const Controls = () => {
                                 min={0}
                                 onKeyDown={(event) => event.preventDefault()}
                             />
-                        </Tooltip>
+                        </Flex>
                     </Flex>
-                    <Paragraph>{videoClock}</Paragraph>
+                    <Paragraph className={"text-[#fff] p-2 text-3xl"}>{videoLink[video].name}</Paragraph>
+                    <Flex gap={"lg"}>
+
+                        <Button ref={instanceOf} size={"icon"}>
+                            <Label variant={"icon"} htmlFor="add" leftSection={<AddVideoIcon/>}/>
+                            <Input
+                                accept={"video/*, video/x-matroska"}
+                                onChange={e => uploadVideoFiles(e, addVideo)}
+                                id={"add"}
+                                multiple={true}/>
+                        </Button>
+
+                        <Button ref={instanceOf} size={"icon"}>
+                            <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>
+                            <Input
+                                accept={".vtt, .srt"}
+                                id={"subtitle"}
+                                onChange={e => uploadSubtitleFile(e, setSubtitles)}
+                                multiple={true}/>
+                        </Button>
+
+                        <Button ref={instanceOf}
+                                onClick={setOpen}
+                                leftSection={<EpisodeListIcon/>}
+                        />
+
+                        <Button ref={instanceOf}
+                                onClick={onToggleFullscreen}
+                                leftSection={fullscreen ? <MinimizeIcon/> : <MaximizeIcon/>}
+                        />
+                    </Flex>
+
                 </Flex>
-                <Flex gap={"xs"}>
-
-                    <Button ref={instanceOf} size={"icon"}>
-                        <Label htmlFor="add" leftSection={<BadgePlusIcon/>}/>
-                        <Input
-                            accept={"video/*, video/x-matroska"}
-                            onChange={e => uploadVideoFiles(e, addVideo)}
-                            id={"add"}
-                            multiple={true}/>
-                    </Button>
-
-                    <Button ref={instanceOf} size={"icon"}>
-                        <Label htmlFor="subtitle" leftSection={<SubtitlesIcon/>}/>
-                        <Input
-                            accept={".vtt, .srt"}
-                            id={"subtitle"}
-                            onChange={e => uploadSubtitleFile(e, setSubtitles)}
-                            multiple={true}/>
-                    </Button>
-
-                    <Button ref={instanceOf}
-                            onClick={setOpen}
-                            leftSection={<EpisodeListIcon/>}
-                    />
-
-                    <Button ref={instanceOf}
-                            onClick={onToggleFullscreen}
-                            leftSection={fullscreen ? <MinimizeIcon/> : <MaximizeIcon/>}
-                    />
-                </Flex>
-
             </Flex>
         </Box>
     );

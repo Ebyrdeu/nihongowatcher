@@ -5,26 +5,26 @@ export interface IconProps extends React.ComponentPropsWithoutRef<"svg"> {
     children: React.ReactNode;
     label: string;
     color?: string;
-    stroke?: string;
+    strokeWidth?: number;
     fill?: string;
     className?: string;
     width?: number;
     height?: number;
 }
 
-const Icon = ({children, label, color, stroke, fill, className, width, height}: IconProps) => (
+const Icon = ({children, label, color, strokeWidth, fill, className, width, height}: IconProps) => (
     <AccessibleIcon.Root label={label}>
         <svg
             xmlns="http://www.w3.org/2000/svg"
             width={width || 24}
             height={height || 24}
             viewBox="0 0 24 24"
-            fill={fill || "#EDE6D4"}
-            stroke={color || "#EDE6D4"}
-            strokeWidth={stroke || 2}
+            fill={fill || "#fff"}
+            stroke={color || "#fff"}
+            strokeWidth={strokeWidth || 2}
             strokeLinecap="round"
             strokeLinejoin="round"
-            className={className || ""}>
+            className={className || "w-[100%] h-[100%]"}>
             {children}
         </svg>
     </AccessibleIcon.Root>
@@ -44,69 +44,65 @@ export const PauseIcon = memo(() => (
 ));
 
 export const SkipForwardIcon = memo(() => (
-    <Icon label={"Skip forward"}>
-        <polygon points="5 4 15 12 5 20 5 4"/>
-        <line x1="19" x2="19" y1="5" y2="19"/>
+    <Icon fill={"none"} label={"Skip forward"}>
+        <path d="M5 4l10 8-10 8V4zM19 5v14"/>
     </Icon>
 ));
 
 export const VolumeMaxIcon = memo(() => (
     <Icon fill={"none"} label={"Volume maximum"}>
-        <polygon fill={"#EDE6D4"} points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
         <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
     </Icon>
 ));
 
+export const VolumeAverageIcon = memo(() => (
+    <Icon fill={"none"} label={"Volume maximum"}>
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14"/>
+    </Icon>
+));
+
+
 export const VolumeLowIcon = memo(() => (
-    <Icon label={"Volume below 50%"}>
-        <polygon fill={"#EDE6D4"} points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <Icon fill={"none"} label={"Volume below 50%"}>
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
     </Icon>
 ));
 
 export const VolumeXIcon = memo(() => (
-    <Icon label={"Volume mute"}>
-        <polygon fill={"#EDE6D4"} points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+    <Icon fill={"none"} label={"Volume mute"}>
+        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
         <line x1="22" x2="16" y1="9" y2="15"/>
         <line x1="16" x2="22" y1="9" y2="15"/>
     </Icon>
 ));
 
-export const BadgePlusIcon = memo(() => (
-    <Icon fill={"none"} label={"Add video"}>
-        <path
-            d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z"/>
-        <line x1="12" x2="12" y1="8" y2="16"/>
-        <line x1="8" x2="16" y1="12" y2="12"/>
+export const AddVideoIcon = memo(() => (
+    <Icon strokeWidth={0.1} label={"Add video"}>
+        <path d="M2 18h10v2H2v-2zm0-7h20v2H2v-2zm0-7h20v2H2V4zm16 14v-3h2v3h3v2h-3v3h-2v-3h-3v-2h3z"/>
     </Icon>
 ));
 
-export const SubtitlesIcon = memo(() => (
-    <Icon fill={"none"} label={"Add subtitle"}>
-        <path d="M7 13h4"/>
-        <path d="M15 13h2"/>
-        <path d="M7 9h2"/>
-        <path d="M13 9h4"/>
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2Z"/>
+export const AddSubtitlesIcon = memo(() => (
+    <Icon strokeWidth={0.1} label={"Add subtitle"}>
+        <path
+            d="M20 4a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V6a2 2 0 012-2h16m0 14V6H4v12h16M6 10h2v2H6v-2m0 4h8v2H6v-2m10 0h2v2h-2v-2m-6-4h8v2h-8v-2z"/>
     </Icon>
 ));
 
 export const MinimizeIcon = memo(() => (
-    <Icon fill={"none"} label={"Exit fullscreen"}>
-        <path d="M8 3v3a2 2 0 0 1-2 2H3"/>
-        <path d="M21 8h-3a2 2 0 0 1-2-2V3"/>
-        <path d="M3 16h3a2 2 0 0 1 2 2v3"/>
-        <path d="M16 21v-3a2 2 0 0 1 2-2h3"/>
+    <Icon strokeWidth={0.1} label={"Exit fullscreen"}>
+        <path d="M9 9H3V7h4V3h2v6zM9 15H3v2h4v4h2v-6zM21 15h-6v6h2v-4h4v-2zM15 9h6V7h-4V3h-2v6z"/>
     </Icon>
 ));
 
 export const MaximizeIcon = memo(() => (
-    <Icon fill={"none"} label={"Enter fullscreen"}>
-        <path d="M8 3H5a2 2 0 0 0-2 2v3"/>
-        <path d="M21 8V5a2 2 0 0 0-2-2h-3"/>
-        <path d="M3 16v3a2 2 0 0 0 2 2h3"/>
-        <path d="M16 21h3a2 2 0 0 0 2-2v-3"/>
+    <Icon strokeWidth={0.1} label={"Enter fullscreen"}>
+        <path d="M3 3h6v2H5v4H3V3zM3 21h6v-2H5v-4H3v6zM15 21h6v-6h-2v4h-4v2zM21 3h-6v2h4v4h2V3z"/>
     </Icon>
 ));
 
@@ -119,10 +115,10 @@ export const UploadIcon = memo(() => (
     </Icon>
 ));
 export const EpisodeListIcon = memo(() => (
-    <Icon fill={"none"} label={"Episode List"}>
-        <line x1="21" x2="3" y1="6" y2="6"/>
-        <line x1="21" x2="9" y1="12" y2="12"/>
-        <line x1="21" x2="7" y1="18" y2="18"/>
+    <Icon strokeWidth={0.1} label={"Episode List"}>
+        <path fillRule="evenodd" clipRule="evenodd"
+              d="M8 5H22V13H24V5C24 3.89543 23.1046 3 22 3H8V5ZM18 9H4V7H18C19.1046 7 20 7.89543 20 9V17H18V9ZM0 13C0 11.8954 0.895431 11 2 11H14C15.1046 11 16 11.8954 16 13V19C16 20.1046 15.1046 21 14 21H2C0.895431 21 0 20.1046 0 19V13ZM14 19V13H2V19H14Z"
+        />
     </Icon>
 ));
 
@@ -132,8 +128,8 @@ SkipForwardIcon.displayName = "SkipForwardIcon";
 VolumeMaxIcon.displayName = "VolumeMaxIcon";
 VolumeLowIcon.displayName = "VolumeLowIcon";
 VolumeXIcon.displayName = "VolumeXIcon";
-BadgePlusIcon.displayName = "BadgePlusIcon";
-SubtitlesIcon.displayName = "SubtitlesIcon";
+AddVideoIcon.displayName = "AddVideoIcon";
+AddSubtitlesIcon.displayName = "AddSubtitlesIcon";
 MinimizeIcon.displayName = "MinimizeIcon";
 MaximizeIcon.displayName = "MaximizeIcon";
 UploadIcon.displayName = "UploadIcon";

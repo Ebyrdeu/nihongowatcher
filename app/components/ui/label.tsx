@@ -8,7 +8,8 @@ const labelVariants = cva(
     {
         variants: {
             variant: {
-                upload: "text-3xl flex flex-col items-center justify-center w-screen h-screen border-2 border-neutral-content hover:border-secondary transition duration-350 ease-in-out border-dashed trasnisition  cursor-pointer",
+                upload: "text-3xl flex flex-col items-center justify-center w-screen h-screen border-2 border-neutral-content hover:border-secondary transition duration-150 ease-in-out border-dashed trasnisition  cursor-pointer",
+                icon: "h-12 w-12",
             },
         },
     });

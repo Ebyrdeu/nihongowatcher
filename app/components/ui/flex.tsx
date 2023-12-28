@@ -20,6 +20,12 @@ const flexVariants = cva(
                 center: "items-center",
                 between: "items-between",
             },
+            direction: {
+                row: "flex-row",
+                rowReverse: "flex-row-reverse",
+                col: "flex-col",
+                colReverse: "flex-col-reverse",
+            },
             gap: {
                 none: "gap-0",
                 xs: "gap-1",
@@ -27,9 +33,6 @@ const flexVariants = cva(
                 md: "gap-4",
                 lg: "gap-8",
                 xl: "gap-10",
-            },
-            specialLayout: {
-                overlay: "absolute bottom-0 left-0 right-0 bg-primary-content/25 transition duration-150 ease-in-out",
             },
         },
         defaultVariants: {
@@ -47,10 +50,10 @@ interface FlexProps extends React.ComponentPropsWithoutRef<"div">, VariantProps<
 }
 
 const Flex = React.forwardRef<FlexElement, FlexProps>(
-    ({className, align, gap, justify, specialLayout, asChild, ...props}, ref) => {
+    ({className, align, gap, justify, direction, asChild, ...props}, ref) => {
         const Comp = asChild ? Slot : "div";
         return <Comp
-            className={cn(flexVariants({align, gap, justify, specialLayout, className}))}
+            className={cn(flexVariants({align, gap, justify, direction, className}))}
             ref={ref}
             {...props}
         />;

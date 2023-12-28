@@ -2,7 +2,6 @@ import React from "react";
 import {cn} from "@/lib";
 import {cva, type VariantProps} from "class-variance-authority";
 import {Slot} from "@radix-ui/react-slot";
-import {Box} from "@/components/ui/box";
 
 const buttonVariants = cva(
     "inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
@@ -11,11 +10,11 @@ const buttonVariants = cva(
             variant: {
                 default: "bg-base-100 hover:bg-base-200",
                 outline: "bg-transparent border-2 border-rose-600 focus:outline-none",
-                transparent: "rounded-full my-1 hover:bg-neutral-content/20 transparent focus:outline-none",
+                transparent: " overflow-hidden transform transition duration-150 hover:scale-[1.3]  transparent focus:outline-none",
             },
             size: {
                 default: "h-10 px-4 py-2",
-                icon: "h-10 w-10",
+                icon: "h-12 w-12",
             },
         },
         defaultVariants: {
@@ -40,9 +39,7 @@ const Button = React.forwardRef<ButtonElement, ButtonProps>(
             className={cn(buttonVariants({variant, size, className}))}
             ref={ref}
             {...props}>
-            {leftSection && <Box className={"transition ease-in duration-500"}>
-                {leftSection}
-            </Box>}
+            {leftSection && leftSection}
             {children}
         </Comp>;
     },

@@ -22,6 +22,7 @@ export default function Index() {
     return (
         <div style={{fontFamily: "Netflix Sans,Helvetica Nueue,Helvetica,Arial,sans-serif", lineHeight: "1.8"}}>
             {videoLink.length <= 0 ? <DragAndDrop/> : <VideoPlayer/>}
+
         </div>
     );
 }
