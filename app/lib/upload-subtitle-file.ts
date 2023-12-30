@@ -1,17 +1,16 @@
 import type {ChangeEvent} from "react";
-import {SubtitlePart} from "@/store/use-subtitle-store";
+import type {ASSPart, SRTPart, Subtitles} from "@/store/use-subtitle-store";
 
 
-function parseSRT(srt: string): SubtitlePart[] {
-    const subtitles: SubtitlePart[] = [];
+const parseSRT = (srt: string): SRTPart[] => {
+    const subtitles: SRTPart[] = [];
     const subtitleChunks = srt.trim().split("\n\n");
 
     for (const chunk of subtitleChunks) {
         const lines = chunk.trim().split("\n");
         if (lines.length < 3) {
-            // If there aren't enough lines, something is wrong with this chunk
             console.error("Invalid subtitle chunk:", chunk);
-            continue; // Skip this chunk
+            continue;
         }
 
         const sequence = parseInt(lines[0]);
@@ -32,9 +31,45 @@ function parseSRT(srt: string): SubtitlePart[] {
         subtitles.push({sequence, start, end, text});
     }
     return subtitles;
-}
+};
 
-export const uploadSubtitleFile = (event: ChangeEvent<HTMLInputElement>, cb: (subtitles: SubtitlePart[]) => void) => {
+const parseASS = (ass: string): ASSPart[] => {
+    const dialogues: ASSPart[] = [];
+    const subtitleChunks = ass.trim().split("\n");
+
+    for (let chunk of subtitleChunks) {
+        if (chunk.startsWith("Dialogue: ")) {
+            const times = chunk.substring(10).split(",");
+
+            if (times.length < 10) {
+                console.error("Invalid subtitle chunk:", chunk);
+                continue;
+            }
+
+            const [, start, end, style, name, marginL, marginR, marginV, effect] = times;
+            const text = times[9].replace(/\\N|\\\\N|\r|\{.*?}/g, "").trim();
+            const layer = Number.parseInt(times[0]);
+
+            dialogues.push({
+                layer,
+                start,
+                end,
+                style,
+                name,
+                marginL,
+                marginR,
+                marginV,
+                effect,
+                text,
+            });
+        }
+    }
+
+
+    return dialogues;
+};
+
+export const uploadSubtitleFile = (event: ChangeEvent<HTMLInputElement>, cb: (subtitles: Subtitles[]) => void) => {
     const input = event.target as HTMLInputElement;
     if (!input.files) return;
     const file = input.files[0];
@@ -45,9 +80,10 @@ export const uploadSubtitleFile = (event: ChangeEvent<HTMLInputElement>, cb: (su
             const content = e.target?.result;
             if (typeof content === "string") {
                 try {
-                    cb(parseSRT(content));
+                    if (file.name.includes(".ass")) cb(parseASS(content));
+                    if (file.name.includes(".srt") || file.name.includes(".vtt")) parseSRT(content);
                 } catch (error) {
-                    console.error("Error parsing the SRT file", error);
+                    console.error("Error parsing the file", error);
                 }
             }
         };

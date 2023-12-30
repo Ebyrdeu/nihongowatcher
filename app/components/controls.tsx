@@ -108,7 +108,7 @@ export const Controls = () => {
                         <Button ref={instanceOf} size={"icon"}>
                             <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>
                             <Input
-                                accept={".vtt, .srt"}
+                                accept={".vtt, .srt, .ass"}
                                 id={"subtitle"}
                                 onChange={e => uploadSubtitleFile(e, setSubtitles)}
                                 multiple={true}/>
