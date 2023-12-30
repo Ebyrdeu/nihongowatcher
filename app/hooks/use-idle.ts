@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 
-export const useIdle = (idleTime: number = 1500): boolean => {
+export const useIdle = (idleTime: number = 3000): boolean => {
     const [isIdle, setIsIdle] = useState<boolean>(false);
 
     useEffect(() => {
@@ -17,11 +17,9 @@ export const useIdle = (idleTime: number = 1500): boolean => {
         };
 
         document.addEventListener("mousemove", handleMouseMove);
-        document.addEventListener("mouseout", handleMouseOut);
 
         return () => {
             clearTimeout(timer);
-            document.removeEventListener("mousemove", handleMouseMove);
             document.removeEventListener("mouseout", handleMouseOut);
         };
     }, [idleTime]);

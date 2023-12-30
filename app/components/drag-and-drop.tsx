@@ -15,7 +15,7 @@ export const DragAndDrop = () => {
             <Label variant={"upload"} htmlFor="video">
                 <UploadIcon/>
                 <Paragraph>
-                    <span className="font-semibold text-secondary">Choose a file</span> or drag it here.
+                    <span className="font-semibold text-error">Choose a file</span> or drag it here.
                 </Paragraph>
             </Label>
             <Input accept={"video/*, video/x-matroska"}
