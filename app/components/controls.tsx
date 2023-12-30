@@ -59,7 +59,7 @@ export const Controls = () => {
                         onKeyDown={(event) => event.preventDefault()}
                     />
                     <Paragraph style={{textShadow: "0 0 7px #000"}}
-                               className={"text-white"}>{videoClock}</Paragraph>
+                               className={"text-white"}>{videoClock.includes("NaN") ? "00:00" : videoClock}</Paragraph>
                 </Flex>
                 <Flex justify={"between"}>
                     <Flex gap={"lg"}>
