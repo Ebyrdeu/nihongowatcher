@@ -4,12 +4,11 @@ import {useControlStore, useRefStore, useVideoStore} from "@/store";
 import {Controls} from "@/components/controls";
 import Subtitles from "@/components/subtitles";
 import {useIdle, useSubtitle} from "@/hooks";
-import {VideoList} from "@/components/video-list";
 
 export const VideoPlayer = () => {
     const isIdle = useIdle();
 
-    const {videoLink, video} = useVideoStore();
+    const {videoLink, video, nextVideo} = useVideoStore();
 
     const {setVideoNode, setFullscreenNode, fullscreenNode, videoNode} = useRefStore();
     const {setVideoProgress, setPause, setFullscreen} = useControlStore();
@@ -43,6 +42,8 @@ export const VideoPlayer = () => {
         }
     }, [setVideoProgress, videoNode]);
 
+    const autoPlay = ({currentTarget}: React.SyntheticEvent<HTMLVideoElement>) =>
+        (videoLink.length > 0 && currentTarget.currentTime === currentTarget.duration) && nextVideo();
 
     return (
         <Box className={isIdle ? "cursor-none" : ""}
@@ -54,6 +55,7 @@ export const VideoPlayer = () => {
                 onTimeUpdate={e => {
                     handleTimeUpdate();
                     setSubtitlesToCurrentVideoProgress(e);
+                    autoPlay(e);
                 }}
                 ref={videoRef}
                 src={videoLink[video]?.link}
@@ -62,7 +64,6 @@ export const VideoPlayer = () => {
 
             <div className={`ease-in-out duration-150 ${!isIdle ? "opacity-100" : "opacity-0"}`}>
                 <Controls/>
-                <VideoList/>
             </div>
         </Box>
     );

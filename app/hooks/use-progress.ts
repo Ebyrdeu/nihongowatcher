@@ -26,6 +26,18 @@ export const useProgress = () => {
 
     }, [setVideoProgress, videoNode, videoProgress]);
 
+    const jumpToTenSeconds = useCallback((direction: Direction) => {
+        if (videoNode && direction === Direction.DOWN) {
+            videoNode.currentTime = Math.max(0, ((videoProgress[0] / 100) * videoNode.duration) - 10);
+            return setVideoProgress([(videoNode.currentTime / videoNode.duration) * 100]);
+        }
+
+        if (videoNode && direction === Direction.UP) {
+            videoNode.currentTime = Math.max(0, ((videoProgress[0] / 100) * videoNode.duration) + 10);
+            return setVideoProgress([(videoNode.currentTime / videoNode.duration) * 100]);
+        }
+    }, [setVideoProgress, videoNode, videoProgress]);
+
     useEffect(() => {
         const handleKeyDown = (event: KeyboardEvent) => {
             if (event.key === "ArrowLeft" || event.code === "ArrowLeft") adjustVideoTimeBasedOnKey(Direction.DOWN);
@@ -42,6 +54,7 @@ export const useProgress = () => {
     return {
         videoProgress,
         onProgressChange,
+        jumpToTenSeconds,
     };
 
 };

@@ -21,8 +21,7 @@ export default function Index() {
     const {videoLink} = useVideoStore();
     return (
         <div style={{fontFamily: "Netflix Sans,Helvetica Nueue,Helvetica,Arial,sans-serif", lineHeight: "1.8"}}>
-            {videoLink.length <= 0 ? <DragAndDrop/> : <VideoPlayer/>}
-
+            {videoLink.length < 1 ? <DragAndDrop/> : <VideoPlayer/>}
         </div>
     );
 }

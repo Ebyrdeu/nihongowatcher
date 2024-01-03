@@ -7,3 +7,4 @@ export * from "./paragraph";
 export * from "./slider";
 export * from "./video";
 export * from "./scroll-area";
+export * from "./hover-card";

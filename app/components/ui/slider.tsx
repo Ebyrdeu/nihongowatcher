@@ -9,7 +9,7 @@ const sliderRootVariation = cva(
         variants: {
             variant: {
                 volume: "w-20",
-                progress: "w-full h-6",
+                progress: "w-full h-6 controls",
             },
         },
     },
@@ -20,8 +20,8 @@ const sliderTrackVariation = cva(
     {
         variants: {
             track: {
-                volume: "duration-200 ease-in-out delay-500 hover:delay-0 rounded-full",
-                progress: "duration-200 ease-in-out",
+                volume: "duration-200 ease-in-out delay-500 hover:delay-0 rounded-full controls",
+                progress: "duration-200 ease-in-out controls",
             },
         },
     },
@@ -45,10 +45,10 @@ const Slider = React.forwardRef<SliderElement, SliderProps>(({className, variant
             onMouseLeave={() => setHovered(false)}
             {...props}>
             <SliderPrimitive.Track className={`${cn(sliderTrackVariation({track}))} ${!hovered ? "h-1.5" : "h-3"}`}>
-                <SliderPrimitive.Range className="absolute h-full bg-error"/>
+                <SliderPrimitive.Range className="absolute h-full bg-error controls"/>
             </SliderPrimitive.Track>
             <SliderPrimitive.Thumb
-                className=" transform transition duration-500 hover:scale-125 block h-4 w-4 rounded-full border-2 border-error bg-error ring-offset-error  focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"/>
+                className="transform transition duration-500 hover:scale-125 block h-4 w-4 rounded-full border-3 border-error bg-error ring-offset-error  focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring controls focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"/>
         </SliderPrimitive.Root>
     );
 });

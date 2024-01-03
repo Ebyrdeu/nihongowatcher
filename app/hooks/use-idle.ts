@@ -5,10 +5,22 @@ export const useIdle = (idleTime: number = 3000): boolean => {
 
     useEffect(() => {
         let timer: ReturnType<typeof setTimeout>;
-        const handleMouseMove = () => {
+
+        const isMouseOverSomeElement = ({target}: MouseEvent) => {
+            const element = (target as Element).className;
+            const tag = (target as Element).tagName;
+
+            if (tag === "svg" || tag === "path" || tag === "button") return setIsIdle(false);
+            if (element.includes("controls")) return setIsIdle(false);
+
+
+            return setIsIdle(true);
+        };
+
+        const handleMouseMove = (e: MouseEvent) => {
             clearTimeout(timer);
             setIsIdle(false);
-            timer = setTimeout(() => setIsIdle(true), idleTime);
+            timer = setTimeout(() => isMouseOverSomeElement(e), idleTime);
         };
 
         const handleMouseOut = () => {

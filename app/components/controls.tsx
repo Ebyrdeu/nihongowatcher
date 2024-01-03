@@ -2,7 +2,8 @@ import {Box, Button, Flex, Input, Label, Paragraph, Slider} from "@/components/u
 import {
     AddSubtitlesIcon,
     AddVideoIcon,
-    EpisodeListIcon,
+    BackwardTenSecond,
+    ForwardTenSecond,
     MaximizeIcon,
     MinimizeIcon,
     PauseIcon,
@@ -12,17 +13,12 @@ import {
     VolumeMaxIcon,
     VolumeXIcon,
 } from "@/components/ui/icons";
-import {useListStore, useSubtitleStore, useVideoStore} from "@/store";
-import {uploadVideoFiles} from "@/lib";
-import {
-    useFormatVideoTime,
-    useProgress,
-    userVolume,
-    useToggleFullscreen,
-    useTogglePause,
-} from "@/hooks";
+import {useSubtitleStore, useVideoStore} from "@/store";
+import {instanceOf, uploadVideoFiles} from "@/lib";
+import {useFormatVideoTime, useProgress, userVolume, useToggleFullscreen, useTogglePause} from "@/hooks";
 import React, {useState} from "react";
 import {uploadSubtitleFile} from "@/lib/upload-subtitle-file";
+import {VideoList} from "@/components/video-list";
 
 export const Controls = () => {
     const [showVolumeBar, setShowVolumeBar] = useState(false);
@@ -31,13 +27,11 @@ export const Controls = () => {
 
     const {pause, onTogglePlay} = useTogglePause();
     const {fullscreen, onToggleFullscreen} = useToggleFullscreen();
-    const {onProgressChange, videoProgress} = useProgress();
+    const {onProgressChange, videoProgress, jumpToTenSeconds} = useProgress();
     const {volume, onVolumeChange, onMuteVolume} = userVolume();
     const {setSubtitles} = useSubtitleStore();
-    const {setOpen} = useListStore();
     const videoClock = useFormatVideoTime();
 
-    const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
 
     const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume > 0 && volume < 0.5) ?
         <VolumeLowIcon/> : <VolumeMaxIcon/>;
@@ -46,7 +40,7 @@ export const Controls = () => {
     return (
         <Box className={"absolute bottom-0 left-0 right-0 pl-8 pr-8"}
              style={{backgroundImage: "linear-gradient(0deg,rgba(0,0,0,.3) 0,transparent)"}}>
-            <Flex className={"py-9"} gap={"md"} direction={"col"} justify={"start"} align={"between"}>
+            <Flex className={"pb-9"} gap={"md"} direction={"col"} justify={"start"} align={"between"}>
                 <Flex align={"center"}>
                     <Slider
                         onValueChange={onProgressChange}
@@ -69,9 +63,17 @@ export const Controls = () => {
                             leftSection={pause ? <PlayIcon/> : <PauseIcon/>}
                         />
 
-                        {videoLink.length < 2 ? null :
-                            <Button ref={instanceOf} onClick={nextVideo} leftSection={<SkipForwardIcon/>}/>
-                        }
+                        <Button
+                            ref={instanceOf}
+                            onClick={() => jumpToTenSeconds(1)}
+                            leftSection={<BackwardTenSecond/>}
+                        />
+
+                        <Button
+                            ref={instanceOf}
+                            onClick={() => jumpToTenSeconds(0)}
+                            leftSection={<ForwardTenSecond/>}
+                        />
 
                         <Flex
                             onMouseEnter={() => setShowVolumeBar(true)}
@@ -93,8 +95,26 @@ export const Controls = () => {
                             />
                         </Flex>
                     </Flex>
-                    <Paragraph className={"text-[#fff] p-2 text-3xl"}>{videoLink[video].name}</Paragraph>
+                    <Paragraph className={"text-[#fff] p-2 text-3xl truncate "}>{videoLink[video].name}</Paragraph>
                     <Flex gap={"lg"}>
+
+                        {videoLink.length > 1 && (
+                            <Button ref={instanceOf}
+                                    onClick={nextVideo}
+                                    leftSection={<SkipForwardIcon/>}
+                            />
+                        )}
+
+                        <VideoList/>
+
+                        <Button ref={instanceOf} size={"icon"}>
+                            <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>
+                            <Input
+                                accept={".srt, .ass"}
+                                id={"subtitle"}
+                                onChange={e => uploadSubtitleFile(e, setSubtitles)}
+                                multiple={true}/>
+                        </Button>
 
                         <Button ref={instanceOf} size={"icon"}>
                             <Label variant={"icon"} htmlFor="add" leftSection={<AddVideoIcon/>}/>
@@ -104,20 +124,6 @@ export const Controls = () => {
                                 id={"add"}
                                 multiple={true}/>
                         </Button>
-
-                        <Button ref={instanceOf} size={"icon"}>
-                            <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>
-                            <Input
-                                accept={".vtt, .srt, .ass"}
-                                id={"subtitle"}
-                                onChange={e => uploadSubtitleFile(e, setSubtitles)}
-                                multiple={true}/>
-                        </Button>
-
-                        <Button ref={instanceOf}
-                                onClick={setOpen}
-                                leftSection={<EpisodeListIcon/>}
-                        />
 
                         <Button ref={instanceOf}
                                 onClick={onToggleFullscreen}
