@@ -1,4 +1,15 @@
-import {Box, Button, Flex, Input, Label, Paragraph, Slider} from "@/components/ui";
+import {
+    Box,
+    Button,
+    Flex,
+    HoverCard,
+    HoverCardContent,
+    HoverCardTrigger,
+    Input,
+    Label,
+    Paragraph,
+    Slider,
+} from "@/components/ui";
 import {
     AddSubtitlesIcon,
     AddVideoIcon,
@@ -16,13 +27,11 @@ import {
 import {useSubtitleStore, useVideoStore} from "@/store";
 import {instanceOf, uploadVideoFiles} from "@/lib";
 import {useFormatVideoTime, useProgress, userVolume, useToggleFullscreen, useTogglePause} from "@/hooks";
-import React, {useState} from "react";
+import React from "react";
 import {uploadSubtitleFile} from "@/lib/upload-subtitle-file";
 import {VideoList} from "@/components/video-list";
 
 export const Controls = () => {
-    const [showVolumeBar, setShowVolumeBar] = useState(false);
-
     const {videoLink, video, nextVideo, addVideo} = useVideoStore();
 
     const {pause, onTogglePlay} = useTogglePause();
@@ -76,23 +85,28 @@ export const Controls = () => {
                         />
 
                         <Flex
-                            onMouseEnter={() => setShowVolumeBar(true)}
-                            onMouseLeave={() => setShowVolumeBar(false)}
                             type={"inline"}
                             gap={"sm"}
                         >
-                            <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
-                            <Slider
-                                className={`${showVolumeBar ? "opacity-1" : "opacity-0 w-0"} duration-500`}
-                                onValueChange={onVolumeChange}
-                                track={"volume"}
-                                variant={"volume"}
-                                value={[volume]}
-                                max={1}
-                                step={0.01}
-                                min={0}
-                                onKeyDown={(event) => event.preventDefault()}
-                            />
+                            <HoverCard openDelay={0} closeDelay={0}>
+                                <HoverCardTrigger asChild>
+                                    <Button onClick={onMuteVolume} ref={instanceOf} leftSection={volumeIconRange}/>
+                                </HoverCardTrigger>
+                                <HoverCardContent sideOffset={-5} className={"controls w-fit"}>
+                                    <Slider
+                                        onValueChange={onVolumeChange}
+                                        orientation={"vertical"}
+                                        isVertical={true}
+                                        track={"volume"}
+                                        variant={"volume"}
+                                        value={[volume]}
+                                        max={1}
+                                        step={0.01}
+                                        min={0}
+                                        onKeyDown={(event) => event.preventDefault()}
+                                    />
+                                </HoverCardContent>
+                            </HoverCard>
                         </Flex>
                     </Flex>
                     <Paragraph className={"text-[#fff] p-2 text-3xl truncate "}>{videoLink[video].name}</Paragraph>

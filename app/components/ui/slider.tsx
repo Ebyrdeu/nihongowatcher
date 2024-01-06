@@ -1,14 +1,16 @@
-import React, {useState} from "react";
+import React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import {cn} from "@/lib";
+import {cn, mousePosition} from "@/lib";
 import {cva, VariantProps} from "class-variance-authority";
+import {VideoPreview} from "@/components/video-preview";
+import {useSliderStore} from "@/store";
 
 const sliderRootVariation = cva(
-    "relative flex touch-none select-none items-center cursor-pointer",
+    "relative flex touch-none select-none items-center justify-items-center  cursor-pointer",
     {
         variants: {
             variant: {
-                volume: "w-20",
+                volume: "h-20 w-1.5",
                 progress: "w-full h-6 controls",
             },
         },
@@ -20,7 +22,7 @@ const sliderTrackVariation = cva(
     {
         variants: {
             track: {
-                volume: "duration-200 ease-in-out delay-500 hover:delay-0 rounded-full controls",
+                volume: "controls",
                 progress: "duration-200 ease-in-out controls",
             },
         },
@@ -32,26 +34,33 @@ type SliderElement = React.ElementRef<typeof SliderPrimitive.Root>
 interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root>,
     VariantProps<typeof sliderRootVariation>,
     VariantProps<typeof sliderTrackVariation> {
+    isVertical?: boolean;
 }
 
-const Slider = React.forwardRef<SliderElement, SliderProps>(({className, variant, track, ...props}, ref) => {
+const Slider = React.forwardRef<SliderElement, SliderProps>(
+    ({className, variant, track, isVertical = false, ...props}, ref) => {
 
-    const [hovered, setHovered] = useState(false);
-    return (
-        <SliderPrimitive.Root
-            ref={ref}
-            className={cn(sliderRootVariation({variant, className}))}
-            onMouseEnter={() => setHovered(true)}
-            onMouseLeave={() => setHovered(false)}
-            {...props}>
-            <SliderPrimitive.Track className={`${cn(sliderTrackVariation({track}))} ${!hovered ? "h-1.5" : "h-3"}`}>
-                <SliderPrimitive.Range className="absolute h-full bg-error controls"/>
-            </SliderPrimitive.Track>
-            <SliderPrimitive.Thumb
-                className="transform transition duration-500 hover:scale-125 block h-4 w-4 rounded-full border-3 border-error bg-error ring-offset-error  focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring controls focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50"/>
-        </SliderPrimitive.Root>
-    );
-});
+        const {setHover, setPositioning, isHover} = useSliderStore();
+
+        return (
+            <SliderPrimitive.Root
+                ref={ref}
+                className={`${cn(sliderRootVariation({variant, className}))} ${isVertical ? "flex-col" : ""}`}
+                onMouseEnter={() => setHover(true)}
+                onMouseLeave={() => setHover(false)}
+                onMouseMove={e => setPositioning(mousePosition(e))}
+                {...props}>
+                <SliderPrimitive.Track
+                    className={`${cn(sliderTrackVariation({track}))} ${!isHover ? "h-1.5" : "h-3"}`}>
+                    <SliderPrimitive.Range
+                        className={`absolute ${isVertical ? "w-full" : " h-full "} bg-error controls`}/>
+                    {!isVertical && <VideoPreview/>}
+                </SliderPrimitive.Track>
+                <SliderPrimitive.Thumb
+                    className={`transform transition duration-150 h-4 w-4 hover:scale-125 block rounded-full border-2 border-error bg-error ring-offset-error  focus-visible:outline-none focus-visible:ring-0 focus-visible:ring-ring controls focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50`}/>
+            </SliderPrimitive.Root>
+        );
+    });
 
 Slider.displayName = SliderPrimitive.Root.displayName;
 
