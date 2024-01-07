@@ -1,4 +1,5 @@
 import {create} from "zustand";
+import type {VideoDataProps} from "@/lib";
 
 interface VideoStore {
     videoLink: VideoDataProps[];
@@ -8,10 +9,6 @@ interface VideoStore {
     addVideo: (link: VideoDataProps[]) => void;
 }
 
-interface VideoDataProps {
-    name: string,
-    link: string
-}
 
 const useVideoStore = create<VideoStore>((set) => ({
     videoLink: [],
@@ -23,21 +20,15 @@ const useVideoStore = create<VideoStore>((set) => ({
     }),
     addVideo: (link: VideoDataProps[]) => set(
         s => {
-            const combinedLinks = [...s.videoLink, ...link]
-                .sort((a, b) => a.name.localeCompare(b.name))
-                .map(value => ({
-                    name: value.name.replace(/\[[^\]]*]|\.\w+$|\([^)]*\)/g, ""),
-                    link: value.link,
-                }));
+            const combinedLinks = [...s.videoLink, ...link].map(value => ({
+                name: value.name,
+                link: value.link,
+            }));
 
-            const uniqueLinks = combinedLinks
-                .filter((value, index, self) =>
-                    index === self.findIndex((t) => t.name === value.name));
-
-            return {videoLink: uniqueLinks};
+            return {videoLink: combinedLinks};
         },
     ),
 
 }));
 
-export {useVideoStore, type VideoDataProps};
+export {useVideoStore};

@@ -1,13 +1,13 @@
 import {useRefStore} from "@/store";
-import {formatTime} from "@/lib";
+import {TimeParser} from "@/lib";
 
 export const useFormatVideoTime = (percentage?: number) => {
     const {videoNode} = useRefStore();
 
 
     return percentage ?
-        formatTime(!videoNode ? 0 : (percentage / 100) * videoNode.duration) :
-        formatTime(!videoNode ? 0 : videoNode.duration - videoNode.currentTime);
+        TimeParser.toClock(!videoNode ? 0 : (percentage / 100) * videoNode.duration) :
+        TimeParser.toClock(!videoNode ? 0 : videoNode.duration - videoNode.currentTime);
 };
 
 

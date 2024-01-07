@@ -12,7 +12,7 @@ const Subtitles = () => {
             className={" absolute bottom-[10%] left-1/2 transform -translate-x-1/2 -translate-y-1/2 min-w-max"}>
             <Paragraph
                 style={{textShadow: "0 0 7px #000", fontWeight: "bolder"}}
-                className={"text-[#fff] text-center shadow-accent-content  md:text-[34px] lg:text-[40px]  xl:text-[48px] antialiased  cursor-default"}>
+                className={"text-white text-center shadow-accent-content  md:text-[34px] lg:text-[40px]  xl:text-[48px] antialiased  cursor-default"}>
                 {subtitle}
             </Paragraph>
         </Box>

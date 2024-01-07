@@ -25,10 +25,9 @@ import {
     VolumeXIcon,
 } from "@/components/ui/icons";
 import {useSubtitleStore, useVideoStore} from "@/store";
-import {instanceOf, uploadVideoFiles} from "@/lib";
+import {instanceOf, SliderControls, SubtitleParser, VideoParser} from "@/lib";
 import {useFormatVideoTime, useProgress, userVolume, useToggleFullscreen, useTogglePause} from "@/hooks";
 import React from "react";
-import {uploadSubtitleFile} from "@/lib/upload-subtitle-file";
 import {VideoList} from "@/components/video-list";
 
 export const Controls = () => {
@@ -74,13 +73,13 @@ export const Controls = () => {
 
                         <Button
                             ref={instanceOf}
-                            onClick={() => jumpToTenSeconds(1)}
+                            onClick={() => jumpToTenSeconds(SliderControls.BACKWARD_VIDEO)}
                             leftSection={<BackwardTenSecond/>}
                         />
 
                         <Button
                             ref={instanceOf}
-                            onClick={() => jumpToTenSeconds(0)}
+                            onClick={() => jumpToTenSeconds(SliderControls.FORWARD_VIDEO)}
                             leftSection={<ForwardTenSecond/>}
                         />
 
@@ -97,7 +96,6 @@ export const Controls = () => {
                                         onValueChange={onVolumeChange}
                                         orientation={"vertical"}
                                         isVertical={true}
-                                        track={"volume"}
                                         variant={"volume"}
                                         value={[volume]}
                                         max={1}
@@ -124,9 +122,9 @@ export const Controls = () => {
                         <Button ref={instanceOf} size={"icon"}>
                             <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>
                             <Input
-                                accept={".srt, .ass"}
+                                accept={".srt, .vtt,  .ass"}
                                 id={"subtitle"}
-                                onChange={e => uploadSubtitleFile(e, setSubtitles)}
+                                onChange={e => SubtitleParser.upload(e, setSubtitles)}
                                 multiple={true}/>
                         </Button>
 
@@ -134,7 +132,7 @@ export const Controls = () => {
                             <Label variant={"icon"} htmlFor="add" leftSection={<AddVideoIcon/>}/>
                             <Input
                                 accept={"video/*, video/x-matroska"}
-                                onChange={e => uploadVideoFiles(e, addVideo)}
+                                onChange={e => VideoParser.upload(e, addVideo)}
                                 id={"add"}
                                 multiple={true}/>
                         </Button>

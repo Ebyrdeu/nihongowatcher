@@ -1,4 +1,4 @@
-import {cva, VariantProps} from "class-variance-authority";
+import {cva, type VariantProps} from "class-variance-authority";
 import React from "react";
 import {Slot} from "@radix-ui/react-slot";
 import {cn} from "@/lib";
@@ -9,7 +9,7 @@ const boxVariants = cva(
         variants: {
             variant: {
                 rounded: "rounded-md",
-                center: "relative bg-[#000]",
+                center: "relative bg-black",
             },
             specialLayout: {
                 overlay: "absolute top-0 left-0 right-0 transition duration-150 ease-in-out",

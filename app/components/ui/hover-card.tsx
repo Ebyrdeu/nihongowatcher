@@ -22,7 +22,7 @@ const HoverCardContent = React.forwardRef<HoverCardContentElement, HoverCardCont
         align={align}
         sideOffset={sideOffset}
         className={cn(
-            "w-[600px] backdrop-blur-md bg-primary-content/30 p-5 rounded-md data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade  data-[state=open]:transition-all",
+            "w-[600px] backdrop-blur-md bg-black/35 p-5 rounded-md data-[side=bottom]:animate-slideUpAndFade data-[side=right]:animate-slideLeftAndFade data-[side=left]:animate-slideRightAndFade data-[side=top]:animate-slideDownAndFade  data-[state=open]:transition-all",
             className,
         )}
         {...props}

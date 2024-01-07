@@ -1,4 +1,5 @@
 import {create} from "zustand";
+import type {Subtitles} from "@/lib";
 
 interface SubtitleStore {
     subtitles: Subtitles[];
@@ -7,28 +8,6 @@ interface SubtitleStore {
     setMouse: (value: boolean) => void;
     setSubtitle: (subtitle: string) => void;
     setSubtitles: (subtitles: Subtitles[]) => void;
-}
-
-type Subtitles = SRTPart | ASSPart;
-
-interface SRTPart {
-    sequence: number;
-    start: string;
-    end: string;
-    text: string;
-}
-
-interface ASSPart {
-    layer: number;
-    start: string;
-    end: string;
-    style: string;
-    name: string;
-    marginL: string;
-    marginR: string;
-    marginV: string;
-    effect: string;
-    text: string;
 }
 
 
@@ -41,4 +20,4 @@ const useSubtitleStore = create<SubtitleStore>((set) => ({
     setMouse: (isMoused) => set(() => ({isMoused})),
 }));
 
-export {useSubtitleStore, type SubtitleStore, type SRTPart, type ASSPart, type Subtitles};
+export {useSubtitleStore, type SubtitleStore};

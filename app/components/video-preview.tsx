@@ -1,5 +1,5 @@
-import React, {useEffect, useRef} from "react";
-import {Flex, HoverCard, HoverCardArrow, HoverCardContent, HoverCardTrigger, Paragraph} from "@/components/ui";
+import React, {ElementRef, useEffect, useRef} from "react";
+import {HoverCard, HoverCardArrow, HoverCardContent, HoverCardTrigger, Paragraph} from "@/components/ui";
 import {useFormatVideoTime} from "@/hooks";
 import {useSliderStore, useVideoStore} from "@/store";
 
@@ -16,11 +16,11 @@ export const VideoPreview = () => {
                     <div className={`bg-white  ${isHover ? "w-0.5" : "w-0"} h-full controls `}/>
                 </div>
             </HoverCardTrigger>
-            <HoverCardContent sideOffset={20} className={"controls w-fit"}>
-                <Flex direction={"col"} align={"center"} justify={"center"}>
-                    <Snapshot/>
-                    <Paragraph>{clock}</Paragraph>
-                </Flex>
+            <HoverCardContent sideOffset={20} className={"w-60 relative p-0.5"}>
+                <Snapshot/>
+                <Paragraph
+                    style={{textShadow: "0 0 2px #000"}}
+                    className={"absolute bottom-0.5 inset-x-0 text-white text-center text-xl"}>{clock}</Paragraph>
                 <HoverCardArrow className={"backdrop-blur-xl fill-accent-content/30"}/>
             </HoverCardContent>
         </HoverCard>
@@ -32,8 +32,8 @@ const Snapshot = () => {
     const {videoLink, video} = useVideoStore();
     const {positioning} = useSliderStore();
 
-    const snapshotVideoRef = useRef<HTMLVideoElement>(null);
-    const canvasRef = useRef<HTMLCanvasElement>(null);
+    const snapshotVideoRef = useRef<ElementRef<"video">>(null);
+    const canvasRef = useRef<ElementRef<"canvas">>(null);
 
     useEffect(() => {
         const canvas = canvasRef.current;
@@ -65,7 +65,7 @@ const Snapshot = () => {
     return (
         <>
             <video className={"hidden"} src={videoLink[video].link} ref={snapshotVideoRef} preload="metadata"/>
-            <canvas ref={canvasRef}/>
+            <canvas className={"w-full h-full rounded-md object-cover"} ref={canvasRef}/>
         </>
     );
 };

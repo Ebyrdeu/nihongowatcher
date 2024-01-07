@@ -1,1 +1,3 @@
-export const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
+const instanceOf = (instance: HTMLButtonElement | null) => instance && instance.blur();
+
+export {instanceOf};
