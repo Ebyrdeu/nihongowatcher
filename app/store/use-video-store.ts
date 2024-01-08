@@ -1,5 +1,5 @@
 import {create} from "zustand";
-import type {VideoDataProps} from "@/lib";
+import {type VideoDataProps, VideoParser} from "@/lib";
 
 interface VideoStore {
     videoLink: VideoDataProps[];
@@ -18,16 +18,8 @@ const useVideoStore = create<VideoStore>((set) => ({
         if (s.videoLink.length - 1 === s.video) return {video: 0};
         return {video: s.video + 1};
     }),
-    addVideo: (link: VideoDataProps[]) => set(
-        s => {
-            const combinedLinks = [...s.videoLink, ...link].map(value => ({
-                name: value.name,
-                link: value.link,
-            }));
-
-            return {videoLink: combinedLinks};
-        },
-    ),
+    addVideo: (link: VideoDataProps[]) => set(s =>
+        ({videoLink: VideoParser.toUniqueFiles([...s.videoLink, ...link])})),
 
 }));
 

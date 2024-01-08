@@ -23,10 +23,14 @@ class VideoParser {
             });
 
             const sorted = this.sort(links);
-            const uniqueLinks = this.toUniqueFiles(sorted);
 
-            cb(uniqueLinks);
+            cb(sorted);
         }
+    }
+
+    public static toUniqueFiles(files: VideoDataProps[]): VideoDataProps[] {
+        return files.filter((value, index, self) =>
+            index === self.findIndex((t) => t.name === value.name));
     }
 
     private static sort(files: VideoDataProps[]): VideoDataProps[] {
@@ -34,17 +38,12 @@ class VideoParser {
         return files.sort((a, b) => a.name.localeCompare(b.name));
     }
 
-    private static toUniqueFiles(files: VideoDataProps[]): VideoDataProps[] {
-        return files.filter((value, index, self) =>
-            index === self.findIndex((t) => t.name === value.name));
-    }
-
     private static clearFileName(fileName: string): string {
         return fileName
             // delete any file extensions and anything with and including () or []
             .replace(/\[[^\]]*]|\.\w+$|\([^)]*\)/g, "")
             // delete anything after including  `WEB-` `BD` `UHD` type format or starting from resolution
-            .replace(/BD[^|]*$|WEB-[^|]*$|UHD[^|]*$|\d{3,4}p[^|]*$/g, "")
+            .replace(/(BD|WEB-|UHD|\d{3,4}p)[^|]*$/g, "")
             // delete  any dots in naming and replace with empty space
             .replace(/\.+/g, " ");
     }
