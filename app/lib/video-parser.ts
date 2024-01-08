@@ -41,9 +41,12 @@ class VideoParser {
 
     private static clearFileName(fileName: string): string {
         return fileName
-            .replace(/\[[^\]]*]|\.\w+$|\([^)]*\)/g, "")   // delete any file extensions and anything with and including () or []
-            .replace(/\.+/g, " ")   // delete  any dots in naming and replace with empty space
-            .replace(/WEB-[^|]*$/g, "");  // delete anything after including  `WEB-` type format
+            // delete any file extensions and anything with and including () or []
+            .replace(/\[[^\]]*]|\.\w+$|\([^)]*\)/g, "")
+            // delete anything after including  `WEB-` `BD` `UHD` type format or starting from resolution
+            .replace(/BD[^|]*$|WEB-[^|]*$|UHD[^|]*$|\d{3,4}p[^|]*$/g, "")
+            // delete  any dots in naming and replace with empty space
+            .replace(/\.+/g, " ");
     }
 }
 

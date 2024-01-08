@@ -111,13 +111,14 @@ export const Controls = () => {
                     <Flex gap={"lg"}>
 
                         {videoLink.length > 1 && (
-                            <Button ref={instanceOf}
-                                    onClick={nextVideo}
-                                    leftSection={<SkipForwardIcon/>}
-                            />
+                            <>
+                                <Button ref={instanceOf}
+                                        onClick={nextVideo}
+                                        leftSection={<SkipForwardIcon/>}
+                                />
+                                <VideoList/>
+                            </>
                         )}
-
-                        <VideoList/>
 
                         <Button ref={instanceOf} size={"icon"}>
                             <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>
