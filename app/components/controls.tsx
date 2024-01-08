@@ -37,10 +37,9 @@ export const Controls = () => {
     const {fullscreen, onToggleFullscreen} = useToggleFullscreen();
     const {onProgressChange, videoProgress, jumpToTenSeconds} = useProgress();
     const {volume, onVolumeChange, onMuteVolume} = userVolume();
-    const {setSubtitles} = useSubtitleStore();
     const videoClock = useFormatVideoTime();
-
-
+    const {setSubtitles} = useSubtitleStore();
+    
     const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume > 0 && volume < 0.5) ?
         <VolumeLowIcon/> : <VolumeMaxIcon/>;
 

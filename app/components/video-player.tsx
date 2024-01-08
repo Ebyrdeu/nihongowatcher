@@ -13,7 +13,6 @@ export const VideoPlayer = () => {
     const {setVideoNode, setFullscreenNode, fullscreenNode, videoNode} = useRefStore();
     const {setVideoProgress, setPause, setFullscreen} = useControlStore();
     const {setSubtitlesToCurrentVideoProgress} = useSubtitle();
-
     const videoRef = useCallback((node: HTMLVideoElement) => {
         if (node !== null) void setVideoNode(node);
     }, [setVideoNode]);

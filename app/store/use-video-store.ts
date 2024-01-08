@@ -9,18 +9,12 @@ interface VideoStore {
     addVideo: (link: VideoDataProps[]) => void;
 }
 
-
 const useVideoStore = create<VideoStore>((set) => ({
     videoLink: [],
     video: 0,
     setVideoNumber: (video) => set(() => ({video})),
-    nextVideo: () => set(s => {
-        if (s.videoLink.length - 1 === s.video) return {video: 0};
-        return {video: s.video + 1};
-    }),
-    addVideo: (link: VideoDataProps[]) => set(s =>
-        ({videoLink: VideoParser.toUniqueFiles([...s.videoLink, ...link])})),
-
+    nextVideo: () => set(s => (s.videoLink.length - 1 === s.video) ? {video: 0} : {video: s.video + 1}),
+    addVideo: (link: VideoDataProps[]) => set(s => ({videoLink: VideoParser.toUniqueFiles([...s.videoLink, ...link])})),
 }));
 
 export {useVideoStore};

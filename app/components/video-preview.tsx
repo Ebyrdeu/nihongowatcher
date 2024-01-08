@@ -1,12 +1,11 @@
-import React, {ElementRef, useEffect, useRef} from "react";
-import {HoverCard, HoverCardArrow, HoverCardContent, HoverCardTrigger, Paragraph} from "@/components/ui";
+import React, {ElementRef, useCallback, useEffect, useRef} from "react";
+import {HoverCard, HoverCardContent, HoverCardTrigger, Paragraph} from "@/components/ui";
 import {useFormatVideoTime} from "@/hooks";
 import {useSliderStore, useVideoStore} from "@/store";
 
 export const VideoPreview = () => {
     const {positioning, isHover} = useSliderStore();
     const clock = useFormatVideoTime(positioning);
-
 
     return (
         <HoverCard openDelay={0} closeDelay={0}>
@@ -16,12 +15,11 @@ export const VideoPreview = () => {
                     <div className={`bg-white  ${isHover ? "w-0.5" : "w-0"} h-full controls `}/>
                 </div>
             </HoverCardTrigger>
-            <HoverCardContent sideOffset={20} className={"w-60 relative p-0.5"}>
+            <HoverCardContent sideOffset={30} className={"max-w-[300px] relative p-2"}>
                 <Snapshot/>
                 <Paragraph
                     style={{textShadow: "0 0 2px #000"}}
-                    className={"absolute bottom-0.5 inset-x-0 text-white text-center text-xl"}>{clock}</Paragraph>
-                <HoverCardArrow className={"backdrop-blur-xl fill-accent-content/30"}/>
+                    className={"absolute bottom-[-25px] inset-x-0 text-white text-center text-xl"}>{clock}</Paragraph>
             </HoverCardContent>
         </HoverCard>
     );
@@ -35,16 +33,18 @@ const Snapshot = () => {
     const snapshotVideoRef = useRef<ElementRef<"video">>(null);
     const canvasRef = useRef<ElementRef<"canvas">>(null);
 
-    useEffect(() => {
+    const captureFrame = useCallback(() => {
         const canvas = canvasRef.current;
         const snapshotVideo = snapshotVideoRef.current;
 
-        const captureFrame = () => {
-            if (snapshotVideo && canvas) {
-                const context = canvas.getContext("2d");
-                if (context) context.drawImage(snapshotVideo, 0, 0, canvas.width, canvas.height);
-            }
-        };
+        if (snapshotVideo && canvas) {
+            const context = canvas.getContext("2d");
+            if (context) context.drawImage(snapshotVideo, 0, 0, canvas.width, canvas.height);
+        }
+    }, []);
+
+    useEffect(() => {
+        const snapshotVideo = snapshotVideoRef.current;
 
         if (snapshotVideo) {
             snapshotVideo.addEventListener("seeked", captureFrame);
@@ -59,13 +59,13 @@ const Snapshot = () => {
                 snapshotVideo.removeEventListener("seeked", captureFrame);
             };
         }
-    }, [videoLink, video, positioning]);
+    }, [videoLink, video, positioning, captureFrame]);
 
 
     return (
         <>
             <video className={"hidden"} src={videoLink[video].link} ref={snapshotVideoRef} preload="metadata"/>
-            <canvas className={"w-full h-full rounded-md object-cover"} ref={canvasRef}/>
+            <canvas className={" w-full h-full rounded-md"} ref={canvasRef}/>
         </>
     );
 };

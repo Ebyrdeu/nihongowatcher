@@ -18,7 +18,7 @@ const sliderRootVariation = cva(
 );
 
 const sliderTrackVariation = cva(
-    "controls relative w-full grow overflow-hidden  bg-primary-content/50",
+    "controls relative w-full grow overflow-hidden  bg-black/50",
     {
         variants: {
             track: {
@@ -45,8 +45,8 @@ const Slider = React.forwardRef<SliderElement, SliderProps>(
             <SliderPrimitive.Root
                 ref={ref}
                 className={`${cn(sliderRootVariation({variant, className}))} ${isVertical ? "flex-col" : ""}`}
-                onMouseEnter={() => setHover(true)}
-                onMouseLeave={() => setHover(false)}
+                onMouseEnter={() => !isVertical && setHover(true)}
+                onMouseLeave={() => !isVertical && setHover(false)}
                 onMouseMove={e => setPositioning(mousePosition(e))}
                 {...props}>
                 <SliderPrimitive.Track
