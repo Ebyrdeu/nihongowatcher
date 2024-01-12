@@ -164,7 +164,7 @@ class SubtitleParser {
                 }
 
                 const [, start, end, style, name, marginL, marginR, marginV, effect] = times;
-                const text = times[9].replace(/\\N|\\\\N|\r|\{.*?}/g, "").trim();
+                const text = times[9].replace(/\\N|\\\\N|\r|\{.*?}/g, "\n");
                 const layer = Number.parseInt(times[0]);
 
                 subtitleList.push({
@@ -181,7 +181,6 @@ class SubtitleParser {
                 });
             }
         }
-
         return subtitleList;
     }
 }

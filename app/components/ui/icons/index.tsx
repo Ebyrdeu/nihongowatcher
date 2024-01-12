@@ -139,7 +139,17 @@ export const BackwardTenSecond = memo(() => (
         />
     </Icon>
 ));
-
+export const OffsetIncrease = memo(() => (
+    <Icon strokeWidth={3} label={"Episode List"}>
+        <path d="M12 5v14"/>
+        <path d="M5 12h14"/>
+    </Icon>
+));
+export const OffsetDecrease = memo(() => (
+    <Icon strokeWidth={3} label={"Episode List"}>
+        <path d="M5 12h14"/>
+    </Icon>
+));
 PlayIcon.displayName = "PlayIcon";
 PauseIcon.displayName = "PauseIcon";
 SkipForwardIcon.displayName = "SkipForwardIcon";
@@ -153,4 +163,6 @@ MaximizeIcon.displayName = "MaximizeIcon";
 UploadIcon.displayName = "UploadIcon";
 EpisodeListIcon.displayName = "EpisodeListIcon";
 ForwardTenSecond.displayName = "ForwardTenSecond";
-BackwardTenSecond.displayName = "BackwordTenSecond";
+BackwardTenSecond.displayName = "BackwardTenSecond";
+OffsetIncrease.displayName = "OffsetIncrease";
+OffsetDecrease.displayName = "OffsetDecrease";

@@ -17,6 +17,8 @@ import {
     ForwardTenSecond,
     MaximizeIcon,
     MinimizeIcon,
+    OffsetDecrease,
+    OffsetIncrease,
     PauseIcon,
     PlayIcon,
     SkipForwardIcon,
@@ -38,11 +40,10 @@ export const Controls = () => {
     const {onProgressChange, videoProgress, jumpToTenSeconds} = useProgress();
     const {volume, onVolumeChange, onMuteVolume} = userVolume();
     const videoClock = useFormatVideoTime();
-    const {setSubtitles} = useSubtitleStore();
-    
+    const {setSubtitles, setOffset} = useSubtitleStore();
+
     const volumeIconRange = (volume === 0) ? <VolumeXIcon/> : (volume > 0 && volume < 0.5) ?
         <VolumeLowIcon/> : <VolumeMaxIcon/>;
-
 
     return (
         <Box className={"absolute bottom-0 left-0 right-0 pl-8 pr-8"}
@@ -118,6 +119,16 @@ export const Controls = () => {
                                 <VideoList/>
                             </>
                         )}
+                        <Button
+                            ref={instanceOf}
+                            onClick={() => setOffset(0.05)}
+                            leftSection={<OffsetIncrease/>}
+                        />
+                        <Button
+                            ref={instanceOf}
+                            onClick={() => setOffset(-0.05)}
+                            leftSection={<OffsetDecrease/>}
+                        />
 
                         <Button ref={instanceOf} size={"icon"}>
                             <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>

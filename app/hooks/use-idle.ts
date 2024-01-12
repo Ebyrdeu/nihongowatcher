@@ -9,8 +9,7 @@ export const useIdle = (idleTime: number = 3000): boolean => {
         const isMouseOverSomeElement = ({target}: MouseEvent) => {
             const element = (target as Element).className;
             const tag = (target as Element).tagName;
-
-            if (tag === "svg" || tag === "path" || tag === "button") return setIsIdle(false);
+            if (tag === "svg" || tag === "path" || tag === "button" || tag === "rect") return setIsIdle(false);
             if (element.includes("controls")) return setIsIdle(false);
 
 

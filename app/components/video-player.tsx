@@ -9,7 +9,6 @@ export const VideoPlayer = () => {
     const isIdle = useIdle();
 
     const {videoLink, video, nextVideo} = useVideoStore();
-
     const {setVideoNode, setFullscreenNode, fullscreenNode, videoNode} = useRefStore();
     const {setVideoProgress, setPause, setFullscreen} = useControlStore();
     const {setSubtitlesToCurrentVideoProgress} = useSubtitle();

@@ -2,12 +2,13 @@ import React from "react";
 import {useSubtitleStore} from "@/store";
 
 export const useSubtitle = () => {
-    const {setSubtitle, subtitles} = useSubtitleStore();
+    const {setSubtitle, subtitles, offset} = useSubtitleStore();
     const setSubtitlesToCurrentVideoProgress = (event: React.SyntheticEvent<HTMLVideoElement>) => {
 
         const timeToSeconds = (time: string) => {
             const [hours, minutes, seconds] = time.split(":");
-            return Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds.replace(",", "."));
+            const result = Number(hours) * 3600 + Number(minutes) * 60 + Number(seconds.replace(",", "."));
+            return result + offset;
         };
 
         const currentTime = event.currentTarget.currentTime;
@@ -16,7 +17,6 @@ export const useSubtitle = () => {
         subtitles.forEach(subtitle => {
             const start = timeToSeconds(subtitle.start);
             const end = timeToSeconds(subtitle.end);
-
             if (currentTime >= start && currentTime <= end) {
                 setSubtitle(subtitle.text);
                 subtitleDisplayed = true;
