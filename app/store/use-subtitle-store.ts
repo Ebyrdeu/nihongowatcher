@@ -18,7 +18,7 @@ const useSubtitleStore = create<SubtitleStore>((set) => ({
     subtitles: [],
     isMoused: false,
     offset: 0,
-    setOffset: (offset) => set((s) => ({offset: s.offset + offset})),
+    setOffset: (offset) => set(() => ({offset})),
     setSubtitle: (subtitle) => set(() => ({subtitle})),
     setSubtitles: (subtitles) => set(() => ({subtitles})),
     setMouse: (isMoused) => set(() => ({isMoused})),

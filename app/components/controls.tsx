@@ -17,8 +17,6 @@ import {
     ForwardTenSecond,
     MaximizeIcon,
     MinimizeIcon,
-    OffsetDecrease,
-    OffsetIncrease,
     PauseIcon,
     PlayIcon,
     SkipForwardIcon,
@@ -106,6 +104,20 @@ export const Controls = () => {
                                 </HoverCardContent>
                             </HoverCard>
                         </Flex>
+
+                        <Input
+                            onChange={e => {
+                                const value = e.currentTarget.value;
+                                let valueOfFloat = parseFloat(value);
+
+                                if (!isNaN(valueOfFloat)) valueOfFloat = parseFloat(valueOfFloat.toFixed(2))
+                                else valueOfFloat = 0.00;
+                                setOffset(valueOfFloat)
+                            }}
+                            variant={"offset"}
+                            type={"text"}
+                            placeholder={"±0.00"}/>
+
                     </Flex>
                     <Paragraph className={"text-[#fff] p-2 text-3xl truncate "}>{videoLink[video].name}</Paragraph>
                     <Flex gap={"lg"}>
@@ -119,16 +131,6 @@ export const Controls = () => {
                                 <VideoList/>
                             </>
                         )}
-                        <Button
-                            ref={instanceOf}
-                            onClick={() => setOffset(0.05)}
-                            leftSection={<OffsetIncrease/>}
-                        />
-                        <Button
-                            ref={instanceOf}
-                            onClick={() => setOffset(-0.05)}
-                            leftSection={<OffsetDecrease/>}
-                        />
 
                         <Button ref={instanceOf} size={"icon"}>
                             <Label variant={"icon"} htmlFor="subtitle" leftSection={<AddSubtitlesIcon/>}/>
