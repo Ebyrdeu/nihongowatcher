@@ -156,14 +156,14 @@ class SubtitleParser {
 
         for (let chunk of subtitleChunks) {
             if (chunk.startsWith("Dialogue: ")) {
-                const times = chunk.substring(10).split(",");
-
+                const times = chunk.substring(10).replace(/{\\pos\(\d+,\d+\)}/g, "").split(",");
+                console.log(times)
                 if (times.length < 10) {
                     console.error("Invalid subtitle chunk:", chunk);
                     continue;
                 }
 
-                const [, start, end, style, name, marginL, marginR, marginV, effect] = times;
+                const [start, end, style, name, marginL, marginR, marginV, effect] = times;
                 const text = times[9].replace(/\\N|\\\\N|\r|\{.*?}/g, "\n");
                 const layer = Number.parseInt(times[0]);
 
