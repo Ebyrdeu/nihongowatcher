@@ -106,7 +106,6 @@ class SubtitleParser {
 
             const times = lines[1].split(" --> ");
             if (times.length !== 2) {
-
                 console.error("Invalid time format:", lines[1]);
                 continue;
             }
@@ -156,14 +155,16 @@ class SubtitleParser {
 
         for (let chunk of subtitleChunks) {
             if (chunk.startsWith("Dialogue: ")) {
+                // here regexp trying to remove any subtitle text that include {pos 0,0} params
                 const times = chunk.substring(10).replace(/{\\pos\(\d+,\d+\)}/g, "").split(",");
-                console.log(times)
+
                 if (times.length < 10) {
                     console.error("Invalid subtitle chunk:", chunk);
                     continue;
                 }
 
                 const [start, end, style, name, marginL, marginR, marginV, effect] = times;
+                // it removes any \N in text for now I want to be one line for time being
                 const text = times[9].replace(/\\N|\\\\N|\r|\{.*?}/g, "\n");
                 const layer = Number.parseInt(times[0]);
 
