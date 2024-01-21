@@ -17,7 +17,7 @@ export const DragAndDrop = () => {
             onDragEnter={onDrag}
             onDragLeave={onDrag}
             onDragOver={onDrag}
-            onDrop={onDrag}>
+            onDrop={e => VideoParser.upload(e, addVideo)}>
             <Label variant={"upload"} htmlFor="video">
                 <UploadIcon/>
                 <Paragraph>
