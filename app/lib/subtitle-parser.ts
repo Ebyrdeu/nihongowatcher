@@ -163,11 +163,10 @@ class SubtitleParser {
                     continue;
                 }
 
-                const [start, end, style, name, marginL, marginR, marginV, effect] = times;
+                const [_, start, end, style, name, marginL, marginR, marginV, effect] = times;
                 // it removes any \N in text for now I want to be one line for time being
                 const text = times[9].replace(/\\N|\\\\N|\r|\{.*?}/g, "\n");
                 const layer = Number.parseInt(times[0]);
-
                 subtitleList.push({
                     layer,
                     start,
