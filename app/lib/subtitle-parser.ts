@@ -90,8 +90,10 @@ class SubtitleParser {
         const subtitlesList: SRT[] = [];
         const subtitleChunks = subtitle
             .trim()
+            // somehow  ony srt file have \r so i need to change to \n just because i cant think of better solution
             .replace(/\r\n/g, '\n')
             .replace(/\r/g, '\n')
+            // you still need this as we just converter \r to an \n
             .split('\n\n');
 
 
