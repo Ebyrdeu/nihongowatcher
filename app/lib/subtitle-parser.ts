@@ -88,7 +88,12 @@ class SubtitleParser {
 
     private static srt(subtitle: string): SRT[] {
         const subtitlesList: SRT[] = [];
-        const subtitleChunks = subtitle.trim().split("\n\n");
+        const subtitleChunks = subtitle
+            .trim()
+            .replace(/\r\n/g, '\n')
+            .replace(/\r/g, '\n')
+            .split('\n\n');
+
 
         for (const chunk of subtitleChunks) {
             const lines = chunk.trim().split("\n");
@@ -96,7 +101,6 @@ class SubtitleParser {
                 console.error("Invalid subtitle chunk:", chunk);
                 continue;
             }
-
 
             const sequence = parseInt(lines[0]);
             if (isNaN(sequence)) {

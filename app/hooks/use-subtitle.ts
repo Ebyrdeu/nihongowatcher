@@ -17,7 +17,6 @@ export const useSubtitle = () => {
 
         subtitles.forEach(subtitle => {
             const start = timeToSeconds(subtitle.start);
-            console.log(subtitle)
             const end = timeToSeconds(subtitle.end);
             if (currentTime >= start && currentTime <= end) {
                 setSubtitle(subtitle.text);
